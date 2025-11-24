@@ -1,0 +1,315 @@
+/* 自适应测试系统样式 - 素气清爽风格 */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Google Sans", "Roboto", "Microsoft YaHei", "PingFang SC", Arial, sans-serif;
+    background: #F5F5F5;
+    color: #333333;
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+/* 卡片样式 */
+.card {
+    background: #FFFFFF;
+    border-radius: 12px;
+    padding: 32px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border: 1px solid #E0E0E0;
+    margin-bottom: 24px;
+}
+
+/* 标题 */
+h1 {
+    font-size: 2.5rem;
+    font-weight: 400;
+    color: #34495E;
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+h2 {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #34495E;
+    margin-bottom: 16px;
+}
+
+h3 {
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: #555555;
+    margin-bottom: 12px;
+}
+
+/* 按钮 */
+.button {
+    background: #95A5A6;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+}
+
+.button:hover {
+    background: #7F8C8D;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+.button:active {
+    transform: translateY(1px);
+}
+
+.button:disabled {
+    background: #BDC3C7;
+    cursor: not-allowed;
+}
+
+.button-primary {
+    background: #34495E;
+}
+
+.button-primary:hover {
+    background: #2C3E50;
+}
+
+/* 输入框 */
+.input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #E0E0E0;
+    border-radius: 6px;
+    font-size: 16px;
+    font-family: inherit;
+    transition: border-color 0.2s;
+    background: white;
+    color: #333333;
+}
+
+.input:focus {
+    outline: none;
+    border-color: #95A5A6;
+    box-shadow: 0 0 0 2px rgba(149, 165, 166, 0.1);
+}
+
+/* 标签 */
+.label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #555555;
+    font-size: 14px;
+}
+
+/* 题目显示 */
+.question-content {
+    font-size: 1.15em;
+    margin: 20px 0;
+    padding: 20px;
+    background: #FAFAFA;
+    border-radius: 8px;
+    border-left: 4px solid #95A5A6;
+}
+
+.options {
+    margin: 20px 0;
+}
+
+.option {
+    padding: 12px 16px;
+    margin: 8px 0;
+    background: white;
+    border: 2px solid #E0E0E0;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.option:hover {
+    background: #F5F5F5;
+    border-color: #BDC3C7;
+}
+
+.option.selected {
+    background: #ECF0F1;
+    border-color: #95A5A6;
+    border-left-width: 4px;
+}
+
+.option.correct {
+    background: #E8F8F5;
+    border-color: #7F8C8D;
+    border-left-width: 4px;
+}
+
+.option.incorrect {
+    background: #F8F9FA;
+    border-color: #BDC3C7;
+    border-left-width: 4px;
+    opacity: 0.7;
+}
+
+/* 反馈 */
+.feedback {
+    padding: 16px;
+    border-radius: 8px;
+    margin: 20px 0;
+}
+
+.feedback.correct {
+    background: #E8F8F5;
+    border-left: 4px solid #7F8C8D;
+    color: #2C3E50;
+}
+
+.feedback.incorrect {
+    background: #F8F9FA;
+    border-left: 4px solid #BDC3C7;
+    color: #555555;
+}
+
+.explanation {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    color: #666666;
+}
+
+/* 进度条 */
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: #E0E0E0;
+    border-radius: 4px;
+    overflow: hidden;
+    margin: 20px 0;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #95A5A6, #7F8C8D);
+    transition: width 0.3s ease;
+    border-radius: 4px;
+}
+
+/* 统计信息 */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin: 24px 0;
+}
+
+.stat-item {
+    background: #FAFAFA;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    border: 1px solid #E0E0E0;
+}
+
+.stat-value {
+    font-size: 2rem;
+    font-weight: 500;
+    color: #34495E;
+    margin-bottom: 8px;
+}
+
+.stat-label {
+    font-size: 0.875rem;
+    color: #666666;
+}
+
+/* 知识点列表 */
+.knowledge-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 12px;
+    margin: 20px 0;
+}
+
+.knowledge-item {
+    background: #FAFAFA;
+    padding: 16px;
+    border-radius: 6px;
+    border-left: 4px solid #95A5A6;
+}
+
+.knowledge-name {
+    font-weight: 500;
+    color: #34495E;
+    margin-bottom: 8px;
+}
+
+.knowledge-progress {
+    width: 100%;
+    height: 6px;
+    background: #E0E0E0;
+    border-radius: 3px;
+    overflow: hidden;
+    margin: 8px 0;
+}
+
+.knowledge-progress-bar {
+    height: 100%;
+    background: #95A5A6;
+    transition: width 0.3s;
+}
+
+.knowledge-stats {
+    font-size: 0.875rem;
+    color: #666666;
+}
+
+/* 错误提示 */
+.error {
+    background: #F8F9FA;
+    color: #E74C3C;
+    padding: 12px 16px;
+    border-radius: 6px;
+    border-left: 4px solid #BDC3C7;
+    margin: 16px 0;
+}
+
+/* 加载状态 */
+.loading {
+    text-align: center;
+    padding: 40px;
+    color: #666666;
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px 16px;
+    }
+    
+    .card {
+        padding: 24px 16px;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+}
+

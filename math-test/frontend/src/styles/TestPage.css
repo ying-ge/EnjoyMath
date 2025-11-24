@@ -1,0 +1,109 @@
+.test-page {
+  min-height: 100vh;
+  padding: 2rem 0;
+  /* 移动端优化 */
+  padding-bottom: 2rem;
+}
+
+@media (max-width: 768px) {
+  .test-page {
+    padding: 1rem 0;
+    padding-bottom: 1rem;
+  }
+  
+  .test-header {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  
+  .test-header h2 {
+    font-size: 1.3rem;
+  }
+  
+  .question-counter {
+    font-size: 0.9rem;
+    padding: 0.4rem 0.8rem;
+  }
+}
+
+.test-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.test-header h2 {
+  color: var(--text-primary);
+  font-size: 1.5rem;
+  font-weight: 400;
+}
+
+.question-counter {
+  background: var(--google-blue);
+  color: white;
+  padding: 6px 16px;
+  border-radius: 16px;
+  font-weight: 500;
+  font-size: 0.875rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.result-feedback {
+  margin-top: 2rem;
+}
+
+.feedback {
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+}
+
+.feedback.correct {
+  background: #E8F5E9;
+  border-left: 4px solid var(--google-green);
+}
+
+.feedback.incorrect {
+  background: #FFEBEE;
+  border-left: 4px solid var(--google-red);
+}
+
+.feedback h3 {
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+}
+
+.feedback.correct h3 {
+  color: #2e7d32;
+}
+
+.feedback.incorrect h3 {
+  color: #c62828;
+}
+
+.explanation {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: white;
+  border-radius: 4px;
+}
+
+.explanation strong {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.test-actions {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.test-actions .button {
+  min-width: 200px;
+  padding: 14px 32px;
+  font-size: 18px;
+}
+

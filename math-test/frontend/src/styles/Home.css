@@ -1,0 +1,152 @@
+.home {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: var(--google-gray-50);
+}
+
+.home-card {
+  max-width: 800px;
+  text-align: center;
+  background: white;
+  border-radius: 8px;
+  padding: 48px 32px;
+  box-shadow: var(--shadow-lg);
+}
+
+.title {
+  font-size: 3rem;
+  font-weight: 400;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+  letter-spacing: -0.5px;
+}
+
+.subtitle {
+  font-size: 1.125rem;
+  color: var(--text-secondary);
+  margin-bottom: 48px;
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.feature {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.feature-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  color: var(--google-blue);
+}
+
+.feature-text h3 {
+  color: var(--text-primary);
+  margin-bottom: 8px;
+  font-size: 1.125rem;
+  font-weight: 500;
+}
+
+.feature-text p {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.form-section {
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.start-button {
+  width: 100%;
+  padding: 16px;
+  font-size: 18px;
+  margin-bottom: 2rem;
+}
+
+.info {
+  text-align: left;
+  background: var(--google-blue-light);
+  padding: 20px 24px;
+  border-radius: 8px;
+  margin-top: 32px;
+  border-left: 3px solid var(--google-blue);
+}
+
+.info p {
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+  font-size: 0.875rem;
+}
+
+.info ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.info li {
+  color: var(--text-secondary);
+  padding: 4px 0;
+  padding-left: 20px;
+  position: relative;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.info li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--google-blue);
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+@media (max-width: 768px) {
+  .home {
+    padding: 1rem;
+  }
+  
+  .title {
+    font-size: 2rem;
+  }
+  
+  .subtitle {
+    font-size: 1rem;
+  }
+  
+  .features {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .home-card {
+    padding: 1.5rem !important;
+  }
+  
+  .start-button {
+    padding: 18px !important;
+    font-size: 18px !important;
+  }
+  
+  /* 移动端输入框优化 */
+  .input {
+    font-size: 16px; /* 防止 iOS 自动缩放 */
+    padding: 14px;
+  }
+}
+

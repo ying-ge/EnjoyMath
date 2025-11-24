@@ -1,0 +1,30 @@
+# GitHub Pages 配置
+title: EnjoyMath - 探索数学，发现更好的自己
+description: 专为初中生设计的数学学习工具，包含自适应测试、交互式题库等实用工具
+theme: jekyll-theme-minimal
+plugins:
+  - jekyll-sitemap
+  - jekyll-feed
+
+# 排除不需要的文件
+exclude:
+  - README.md
+  - .gitignore
+  - .github
+  - math-test/backend
+  - math-test/frontend/node_modules
+  - math-test/frontend/src
+  - math-test/frontend/package.json
+  - math-test/frontend/package-lock.json
+  - math-test/frontend/vite.config.ts
+  - math-test/frontend/tsconfig.json
+  - math-test/frontend/tsconfig.node.json
+  - math-test/requirements.txt
+  - math-test/install.sh
+  - math-test/install.bat
+  - math-test/start_backend.sh
+  - math-test/start_frontend.sh
+  - math-test/math_test.db
+  - math-test/__pycache__
+  - math-test/*/__pycache__
+

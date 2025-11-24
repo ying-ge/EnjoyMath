@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="EnjoyMath - 探索数学，发现更好的自己。专为初中生设计的数学学习工具，包含自适应测试、交互式题库等实用工具。">
+    <title>EnjoyMath - 探索数学，发现更好的自己</title>
+    
+    <!-- Open Graph / Facebook -->
+    <!-- 注意：部署前请将 yourusername 替换为你的 GitHub 用户名 -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourusername.github.io/EnjoyMath/">
+    <meta property="og:title" content="EnjoyMath - 探索数学，发现更好的自己">
+    <meta property="og:description" content="专为初中生设计的数学学习工具，包含自适应测试、交互式题库等实用工具。通过15-20道题目，发现自己的数学能力，找到成长的方向。">
+    <meta property="og:image" content="https://yourusername.github.io/EnjoyMath/share-image.png">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://yourusername.github.io/EnjoyMath/">
+    <meta property="twitter:title" content="EnjoyMath - 探索数学，发现更好的自己">
+    <meta property="twitter:description" content="专为初中生设计的数学学习工具，包含自适应测试、交互式题库等实用工具。">
+    <meta property="twitter:image" content="https://yourusername.github.io/EnjoyMath/share-image.png">
+    
+    <!-- 微信分享 -->
+    <meta itemprop="name" content="EnjoyMath - 探索数学，发现更好的自己">
+    <meta itemprop="description" content="专为初中生设计的数学学习工具，包含自适应测试、交互式题库等实用工具。">
+    <meta itemprop="image" content="https://yourusername.github.io/EnjoyMath/share-image.png">
+    
+    <!-- 移动端优化 -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="EnjoyMath">
+    <meta name="format-detection" content="telephone=no">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Google Sans', 'Roboto', 'Microsoft YaHei', 'PingFang SC', Arial, sans-serif;
+            background: #F5F5F5;
+            min-height: 100vh;
+            padding: 40px 20px;
+            color: #333333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            color: #333333;
+        }
+        
+        .header h1 {
+            font-size: 4.5rem;
+            font-weight: 300;
+            margin-bottom: 20px;
+            letter-spacing: 4px;
+            color: #34495E;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 12px;
+            text-transform: uppercase;
+        }
+        
+        .header h1 span:first-child {
+            background: linear-gradient(135deg, #2C3E50 0%, #34495E 50%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .header h1 span:last-child {
+            background: linear-gradient(135deg, #7F8C8D 0%, #95A5A6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            /* 如果渐变不支持，使用备用颜色 */
+            color: #7F8C8D;
+        }
+        
+        .header h1::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: -20px;
+            width: 8px;
+            height: 8px;
+            background: #95A5A6;
+            border-radius: 50%;
+            opacity: 0.6;
+        }
+        
+        .header h1::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #BDC3C7, #95A5A6, #BDC3C7, transparent);
+            border-radius: 2px;
+        }
+        
+        .header h1 span:first-child {
+            font-weight: 500;
+            letter-spacing: 6px;
+            display: inline-block;
+        }
+        
+        .header h1 span:last-child {
+            font-weight: 300;
+            letter-spacing: 2px;
+            display: inline-block;
+            /* 确保可见性 */
+            opacity: 1;
+        }
+        
+        .header p {
+            font-size: 1.25rem;
+            font-weight: 400;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Tools Grid */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+        
+        /* Tool Card */
+        .tool-card {
+            background: #FFFFFF;
+            border-radius: 12px;
+            padding: 32px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            border: 1px solid #E0E0E0;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #95A5A6, #BDC3C7, #D5DBDB, #ECF0F1);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .tool-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            border-color: #BDC3C7;
+        }
+        
+        .tool-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .tool-card:active {
+            transform: translateY(-2px);
+        }
+        
+        .tool-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #ECF0F1 0%, #D5DBDB 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            border: 1px solid #E0E0E0;
+        }
+        
+        .tool-card:nth-child(2) .tool-icon {
+            background: linear-gradient(135deg, #D5DBDB 0%, #BDC3C7 100%);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+        
+        .tool-card:nth-child(3) .tool-icon {
+            background: linear-gradient(135deg, #BDC3C7 0%, #95A5A6 100%);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+        
+        .tool-card:nth-child(4) .tool-icon {
+            background: linear-gradient(135deg, #95A5A6 0%, #7F8C8D 100%);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+        
+        .tool-title {
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-bottom: 12px;
+            color: #333333;
+        }
+        
+        .tool-description {
+            font-size: 1rem;
+            color: #666666;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+        
+        .tool-features {
+            list-style: none;
+            margin-top: 16px;
+        }
+        
+        .tool-features li {
+            font-size: 0.875rem;
+            color: #666666;
+            margin-bottom: 8px;
+            padding-left: 24px;
+            position: relative;
+        }
+        
+        .tool-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #95A5A6;
+            font-weight: bold;
+        }
+        
+        .tool-link {
+            display: inline-flex;
+            align-items: center;
+            color: #7F8C8D;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-top: 16px;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .tool-link:hover {
+            color: #34495E;
+        }
+        
+        .tool-link::after {
+            content: '→';
+            margin-left: 8px;
+            transition: transform 0.2s;
+        }
+        
+        .tool-card:hover .tool-link::after {
+            transform: translateX(4px);
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            color: #95A5A6;
+            opacity: 0.8;
+        }
+        
+        .footer p {
+            font-size: 0.875rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .header p {
+                font-size: 1rem;
+            }
+            
+            .tools-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .tool-card {
+                padding: 24px;
+            }
+        }
+        
+        /* Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .tool-card {
+            animation: fadeInUp 0.6s ease-out;
+        }
+        
+        .tool-card:nth-child(1) { animation-delay: 0.1s; }
+        .tool-card:nth-child(2) { animation-delay: 0.2s; }
+        .tool-card:nth-child(2) { animation-delay: 0.2s; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>
+                <span style="font-weight: 500;">Enjoy</span><span style="font-weight: 300;">Math</span>
+            </h1>
+            <p>探索数学，发现更好的自己</p>
+        </div>
+        
+        <!-- Tools Grid -->
+        <div class="tools-grid">
+            <!-- 数学水平测试系统 -->
+            <a href="adaptive-test/index.html" class="tool-card">
+                <div class="tool-icon">📊</div>
+                <h2 class="tool-title">自适应数学水平测试</h2>
+                <p class="tool-description">
+                    探索你的数学能力边界。只需完成15-20道题目，系统会根据你的表现智能调整难度，帮你发现自己的强项和需要提升的地方。
+                </p>
+                <ul class="tool-features">
+                    <li>快速探索：15-20道题了解自己</li>
+                    <li>智能匹配：难度随你的能力调整</li>
+                    <li>能力地图：清晰看到自己的水平</li>
+                    <li>成长路径：发现下一步提升方向</li>
+                </ul>
+                <span class="tool-link">开始探索</span>
+            </a>
+            
+            <!-- 交互式题库 -->
+            <a href="math-test/题库.html" class="tool-card">
+                <div class="tool-icon">📚</div>
+                <h2 class="tool-title">交互式题库</h2>
+                <p class="tool-description">
+                    103道精选题目等你挑战。随时练习，即时反馈，每道题都有详细解析。通过反复练习，不断巩固和提升自己的数学能力。
+                </p>
+                <ul class="tool-features">
+                    <li>103道精选题目</li>
+                    <li>随时开始练习</li>
+                    <li>即时查看结果</li>
+                    <li>深入理解每道题</li>
+                </ul>
+                <span class="tool-link">开始练习</span>
+            </a>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <p>EnjoyMath © 2025 | 探索数学，成就更好的自己</p>
+        </div>
+    </div>
+</body>
+</html>
+

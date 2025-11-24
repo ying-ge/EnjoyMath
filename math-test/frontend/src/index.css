@@ -1,0 +1,68 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* Google Material Design 配色 */
+  --google-blue: #4285F4;
+  --google-blue-hover: #357AE8;
+  --google-blue-light: #E8F0FE;
+  --google-red: #EA4335;
+  --google-green: #34A853;
+  --google-yellow: #FBBC04;
+  --google-gray-50: #FAFAFA;
+  --google-gray-100: #F5F5F5;
+  --google-gray-200: #EEEEEE;
+  --google-gray-300: #E0E0E0;
+  --google-gray-400: #BDBDBD;
+  --google-gray-500: #9E9E9E;
+  --google-gray-600: #757575;
+  --google-gray-700: #616161;
+  --google-gray-800: #424242;
+  --google-gray-900: #212121;
+  --text-primary: #202124;
+  --text-secondary: #5F6368;
+  --text-disabled: #9AA0A6;
+  --shadow-sm: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
+  --shadow-md: 0 1px 2px 0 rgba(60,64,67,.3), 0 2px 6px 2px rgba(60,64,67,.15);
+  --shadow-lg: 0 2px 4px 0 rgba(60,64,67,.3), 0 4px 8px 3px rgba(60,64,67,.15);
+  --shadow-xl: 0 4px 8px 0 rgba(60,64,67,.3), 0 8px 16px 5px rgba(60,64,67,.15);
+}
+
+body {
+  font-family: 'Google Sans', 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--google-gray-50);
+  color: var(--text-primary);
+  min-height: 100vh;
+  /* 防止移动端选择文本时的背景高亮 */
+  -webkit-tap-highlight-color: transparent;
+  /* 优化移动端滚动 */
+  -webkit-overflow-scrolling: touch;
+  line-height: 1.5;
+}
+
+/* 移动端优化 */
+@media (max-width: 768px) {
+  body {
+    /* 防止移动端缩放 */
+    touch-action: manipulation;
+    font-size: 14px;
+  }
+}
+
+code {
+  font-family: 'Roboto Mono', 'Consolas', 'Courier New', monospace;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+

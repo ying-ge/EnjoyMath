@@ -1,0 +1,220 @@
+.result-page {
+  min-height: 100vh;
+  padding: 24px 0;
+  background: var(--google-gray-50);
+}
+
+.result-card {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.result-title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 400;
+  color: var(--text-primary);
+  margin-bottom: 32px;
+  letter-spacing: -0.5px;
+}
+
+.result-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.summary-item {
+  text-align: center;
+  padding: 24px;
+  background: var(--google-blue);
+  border-radius: 8px;
+  color: white;
+  box-shadow: var(--shadow-md);
+  transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.summary-item:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+.summary-label {
+  font-size: 1rem;
+  opacity: 0.9;
+  margin-bottom: 1rem;
+}
+
+.summary-value {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.summary-detail {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.semester-section,
+.knowledge-section,
+.suggestions-section {
+  margin-bottom: 3rem;
+}
+
+.semester-section h2,
+.knowledge-section h2,
+.suggestions-section h2 {
+  color: var(--text-primary);
+  margin-bottom: 24px;
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+.knowledge-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.knowledge-item {
+  background: white;
+  padding: 16px;
+  border-radius: 4px;
+  border-left: 4px solid var(--google-blue);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.2s;
+}
+
+.knowledge-item:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.knowledge-name {
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+  font-size: 0.875rem;
+}
+
+.knowledge-progress {
+  width: 100%;
+  height: 8px;
+  background: #e0e0e0;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+
+.knowledge-progress-bar {
+  height: 100%;
+  background: var(--google-blue);
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 4px;
+}
+
+.knowledge-stats {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+
+.semester-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.semester-item {
+  background: white;
+  padding: 16px;
+  border-radius: 4px;
+  border-left: 4px solid var(--google-green);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.2s;
+}
+
+.semester-item:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.semester-name {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+.semester-progress {
+  width: 100%;
+  height: 8px;
+  background: #e0e0e0;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+
+.semester-progress-bar {
+  height: 100%;
+  background: var(--google-green);
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 4px;
+}
+
+.semester-stats {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.suggestion {
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  border-left: 4px solid;
+}
+
+.suggestion.high {
+  background: #FFF3E0;
+  border-color: var(--google-yellow);
+  box-shadow: var(--shadow-sm);
+}
+
+.suggestion.medium {
+  background: var(--google-blue-light);
+  border-color: var(--google-blue);
+  box-shadow: var(--shadow-sm);
+}
+
+.suggestion h3 {
+  color: var(--text-primary);
+  margin-bottom: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.suggestion p {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  font-size: 0.875rem;
+}
+
+.result-actions {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.ability-level {
+  font-size: 1.8rem !important;
+}
+
+@media (max-width: 768px) {
+  .result-summary {
+    grid-template-columns: 1fr;
+  }
+  
+  .knowledge-grid {
+    grid-template-columns: 1fr;
+  }
+}
+

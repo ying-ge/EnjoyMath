@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自适应数学水平测试 - EnjoyMath</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@300;400;500&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <style>
+        .home-card {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .subtitle {
+            font-size: 1.125rem;
+            color: #666666;
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin: 32px 0;
+        }
+        
+        .feature {
+            text-align: center;
+        }
+        
+        .feature-icon {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+        
+        .feature-title {
+            font-size: 0.875rem;
+            color: #555555;
+            margin-bottom: 4px;
+        }
+        
+        .feature-desc {
+            font-size: 0.75rem;
+            color: #666666;
+        }
+        
+        .form-section {
+            text-align: left;
+            margin: 24px 0;
+        }
+        
+        .info-box {
+            background: #FAFAFA;
+            padding: 16px;
+            border-radius: 8px;
+            border-left: 4px solid #95A5A6;
+            margin-top: 24px;
+            text-align: left;
+        }
+        
+        .info-box p {
+            font-weight: 500;
+            color: #34495E;
+            margin-bottom: 8px;
+        }
+        
+        .info-box ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .info-box li {
+            color: #666666;
+            font-size: 0.875rem;
+            padding: 4px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .info-box li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #95A5A6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card home-card">
+            <h1>探索你的数学能力</h1>
+            <p class="subtitle">
+                通过15-20道题目，发现自己的强项和提升方向
+            </p>
+            
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon">📊</div>
+                    <div class="feature-title">智能匹配</div>
+                    <div class="feature-desc">难度随能力调整</div>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📚</div>
+                    <div class="feature-title">全面探索</div>
+                    <div class="feature-desc">涵盖主要知识点</div>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📈</div>
+                    <div class="feature-title">能力地图</div>
+                    <div class="feature-desc">清晰看到水平</div>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <label class="label">选择学期</label>
+                <select class="input" id="semesterSelect" style="width: 100%; padding: 12px 16px; font-size: 16px; border: 1px solid #E0E0E0; border-radius: 6px; background: white; cursor: pointer;">
+                    <option value="七年级上">七年级上</option>
+                    <option value="七年级下">七年级下</option>
+                    <option value="八年级上">八年级上</option>
+                    <option value="八年级下">八年级下</option>
+                    <option value="九年级上">九年级上</option>
+                    <option value="九年级下">九年级下</option>
+                </select>
+                <p style="font-size: 0.875rem; color: #666666; margin-top: 8px;">
+                    将测试当前学期及之前学过的内容
+                </p>
+            </div>
+            
+            <div class="form-section">
+                <label class="label">学生ID（可选）</label>
+                <input 
+                    type="text" 
+                    class="input" 
+                    id="studentId"
+                    placeholder="输入你的学生ID，或留空开始探索"
+                >
+            </div>
+            
+            <div id="error" class="error" style="display: none;"></div>
+            
+            <button class="button button-primary" id="startButton" style="width: 100%; padding: 16px; font-size: 18px;">
+                开始探索
+            </button>
+            
+            <div class="info-box">
+                <p>📝 探索说明：</p>
+                <ul>
+                    <li>大约需要完成 15-20 道题目</li>
+                    <li>题目难度会根据你的表现自动调整</li>
+                    <li>认真作答，才能准确发现自己的能力</li>
+                    <li>建议在安静的环境中专注探索</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/adaptive.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/test-engine.js"></script>
+    <script src="js/questions.js"></script>
+    <script>
+        const startButton = document.getElementById('startButton');
+        const studentIdInput = document.getElementById('studentId');
+        const errorDiv = document.getElementById('error');
+        
+        let loading = false;
+        
+        startButton.addEventListener('click', () => {
+            if (loading) return;
+            
+            loading = true;
+            startButton.disabled = true;
+            startButton.textContent = '准备中...';
+            errorDiv.style.display = 'none';
+            
+            try {
+                // 获取选择的学期
+                const semesterSelect = document.getElementById('semesterSelect');
+                const selectedSemester = semesterSelect.value;
+                
+                // 初始化
+                const storage = new TestStorage();
+                const engine = new AdaptiveTestEngine(questionsData, storage);
+                
+                // 开始测试（传入学期参数）
+                const studentId = studentIdInput.value.trim();
+                const result = engine.startTest(studentId, selectedSemester);
+                
+                // 跳转到测试页面（传递学期参数）
+                window.location.href = `test.html?session=${result.sessionId}&semester=${encodeURIComponent(selectedSemester)}`;
+            } catch (error) {
+                errorDiv.textContent = '启动失败：' + error.message;
+                errorDiv.style.display = 'block';
+                loading = false;
+                startButton.disabled = false;
+                startButton.textContent = '开始探索';
+            }
+        });
+        
+        // 回车键启动
+        studentIdInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                startButton.click();
+            }
+        });
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生成分享预览图</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: #F5F5F5;
+            font-family: 'Microsoft YaHei', 'PingFang SC', Arial, sans-serif;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #34495E;
+            margin-bottom: 30px;
+        }
+        
+        .preview {
+            width: 1200px;
+            height: 630px;
+            background: linear-gradient(135deg, #F5F5F5 0%, #ECF0F1 100%);
+            border: 2px solid #E0E0E0;
+            position: relative;
+            margin: 20px auto;
+            overflow: hidden;
+        }
+        
+        .content {
+            padding: 80px 100px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .logo {
+            font-size: 120px;
+            font-weight: 300;
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, #2C3E50 0%, #34495E 30%, #7F8C8D 70%, #95A5A6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 20px;
+        }
+        
+        .title {
+            font-size: 48px;
+            color: #34495E;
+            font-weight: 500;
+            margin-bottom: 30px;
+        }
+        
+        .subtitle {
+            font-size: 32px;
+            color: #7F8C8D;
+            font-weight: 400;
+            margin-bottom: 50px;
+        }
+        
+        .features {
+            display: flex;
+            gap: 60px;
+            margin-top: 40px;
+        }
+        
+        .feature {
+            text-align: center;
+        }
+        
+        .feature-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+        
+        .feature-text {
+            font-size: 24px;
+            color: #555555;
+        }
+        
+        .button {
+            margin-top: 40px;
+            padding: 16px 40px;
+            background: #34495E;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 20px;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        
+        .button:hover {
+            background: #2C3E50;
+        }
+        
+        .instructions {
+            margin-top: 40px;
+            padding: 20px;
+            background: #F8F9FA;
+            border-radius: 8px;
+            border-left: 4px solid #34495E;
+        }
+        
+        .instructions h2 {
+            color: #34495E;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        
+        .instructions ol {
+            margin-left: 20px;
+            line-height: 1.8;
+            color: #555555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>生成微信分享预览图</h1>
+        
+        <div class="preview" id="preview">
+            <div class="content">
+                <div class="logo">EnjoyMath</div>
+                <div class="title">探索数学，发现更好的自己</div>
+                <div class="subtitle">专为初中生设计的数学学习工具</div>
+                <div class="features">
+                    <div class="feature">
+                        <div class="feature-icon">📊</div>
+                        <div class="feature-text">自适应测试</div>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">📚</div>
+                        <div class="feature-text">交互题库</div>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">📈</div>
+                        <div class="feature-text">能力分析</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div style="text-align: center;">
+            <button class="button" onclick="downloadImage()">下载分享图 (1200x630)</button>
+        </div>
+        
+        <div class="instructions">
+            <h2>使用说明：</h2>
+            <ol>
+                <li>点击"下载分享图"按钮，保存图片</li>
+                <li>将图片重命名为 <code>share-image.png</code></li>
+                <li>将图片放在项目根目录</li>
+                <li>在 <code>index.html</code> 中更新图片 URL（替换 yourusername）</li>
+                <li>提交到 GitHub 并推送到仓库</li>
+            </ol>
+        </div>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script>
+        async function downloadImage() {
+            const preview = document.getElementById('preview');
+            const button = event.target;
+            const originalText = button.textContent;
+            
+            button.textContent = '生成中...';
+            button.disabled = true;
+            
+            try {
+                const canvas = await html2canvas(preview, {
+                    width: 1200,
+                    height: 630,
+                    scale: 1,
+                    backgroundColor: '#F5F5F5',
+                    useCORS: true,
+                    logging: false
+                });
+                
+                const link = document.createElement('a');
+                link.download = 'share-image.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+                
+                button.textContent = originalText;
+                button.disabled = false;
+                alert('图片已下载！请将文件重命名为 share-image.png 并放在项目根目录。');
+            } catch (error) {
+                console.error('生成图片失败:', error);
+                alert('生成图片失败，请检查浏览器控制台。\n\n提示：如果 html2canvas 加载失败，请检查网络连接或手动创建分享图。');
+                button.textContent = originalText;
+                button.disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>
+
