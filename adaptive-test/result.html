@@ -563,6 +563,20 @@
                         <div class="summary-value">${accuracyPercent}%</div>
                         <div class="summary-detail">${result.correctCount} / ${result.totalQuestions} 题</div>
                     </div>
+                    ${result.scaledScore ? `
+                    <div class="summary-item">
+                        <div class="summary-label">标准分数</div>
+                        <div class="summary-value">${result.scaledScore}</div>
+                        <div class="summary-detail">范围: 0-1000 (中等=500)</div>
+                    </div>
+                    ` : ''}
+                    ${result.gradeEquivalent ? `
+                    <div class="summary-item">
+                        <div class="summary-label">年级等值</div>
+                        <div class="summary-value">${result.gradeEquivalent.toFixed(1)}</div>
+                        <div class="summary-detail">相当于 ${result.gradeEquivalent.toFixed(1)} 年级水平</div>
+                    </div>
+                    ` : ''}
                     ${result.difficultyStats ? `
                     <div class="summary-item">
                         <div class="summary-label">平均题目难度</div>
@@ -571,7 +585,146 @@
                     </div>
                     ` : ''}
                 </div>
+                
+                <!-- 分数换算关系说明 -->
+                <div class="section" style="background: #F8F9FA; padding: 20px; border-radius: 8px; margin-top: 24px; border-left: 4px solid #4285F4;">
+                    <h3 style="margin-top: 0; color: #1A73E8;">📊 分数指标说明</h3>
+                    <div style="line-height: 1.8; color: #5F6368; font-size: 0.9rem;">
+                        <p style="margin: 8px 0;"><strong>能力值（theta）</strong>：范围 -3.0 到 3.0，是 IRT 模型的核心指标。0.0 表示中等水平，正数表示高于平均水平，负数表示低于平均水平。</p>
+                        <p style="margin: 8px 0;"><strong>标准分数</strong>：范围 0-1000，更直观的分数。换算公式：标准分数 = 500 + (能力值 × 100)。500 分对应中等水平。</p>
+                        <p style="margin: 8px 0;"><strong>年级等值（GE）</strong>：表示相当于哪个年级的水平。例如 8.5 表示相当于八年级下学期水平，9.0 表示相当于九年级上学期水平。</p>
+                        <p style="margin: 8px 0;"><strong>难度值</strong>：题目的难度参数，范围 -3.0 到 3.0，与能力值使用相同尺度。当难度值 = 能力值时，答对概率约 50%。</p>
+                        <details style="margin-top: 12px;">
+                            <summary style="cursor: pointer; color: #1A73E8; font-weight: 500;">查看换算关系表</summary>
+                            <table style="margin-top: 12px; width: 100%; border-collapse: collapse; font-size: 0.85rem;">
+                                <thead>
+                                    <tr style="background: #E8F0FE;">
+                                        <th style="padding: 8px; border: 1px solid #DADCE0; text-align: center;">能力值</th>
+                                        <th style="padding: 8px; border: 1px solid #DADCE0; text-align: center;">标准分数</th>
+                                        <th style="padding: 8px; border: 1px solid #DADCE0; text-align: center;">年级等值</th>
+                                        <th style="padding: 8px; border: 1px solid #DADCE0; text-align: center;">说明</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td style="padding: 6px; border: 1px solid #DADCE0; text-align: center;">-2.0</td><td style="padding: 6px; border: 1px solid #DADCE0; text-align: center;">300</td><td style="padding: 6px; border: 1px solid #DADCE0; text-align: center;">6.8</td><td style="padding: 6px; border: 1px solid #DADCE0;">基础水平</td></tr>
+                                    <tr><td style="padding: 6px; border: 1px solid #DADCE0; text-align: center;">-1.0</td><td style="padding: 6px; border: 1px solid #DADCE0; text-align: center;">400</td><td style="padding: 6px; border: 1px solid #DADCE0; text-align: center;">7.2</td><td style="padding: 6px; border: 1px solid #DADCE0;">七年级上</td></tr>
+                                    <tr><td style="padding: 6px; border: 1px solid #DADCE0; text-align: center;">0.0</td><td style="padding: 6px; border: 1px solid #DADCE0; text-align: center;">500</td><td style="padding: 6px; border: 1px solid #DADCE0; text-align: center;">8.0</td><td style="padding: 6px; border: 1px solid #DADCE0;">中等水平（基准）</td></tr>
+                                    <tr><td style="padding: 6px; border: 1px solid #DADCE0; text-align: center;">1.0</td><td style="padding: 6px; border: 1px solid #DADCE0; text-align: center;">600</td><td style="padding: 6px; border: 1px solid #DADCE0; text-align: center;">9.0</td><td style="padding: 6px; border: 1px solid #DADCE0;">九年级上</td></tr>
+                                    <tr><td style="padding: 6px; border: 1px solid #DADCE0; text-align: center;">2.0</td><td style="padding: 6px; border: 1px solid #DADCE0; text-align: center;">700</td><td style="padding: 6px; border: 1px solid #DADCE0; text-align: center;">9.7</td><td style="padding: 6px; border: 1px solid #DADCE0;">优秀水平</td></tr>
+                                    <tr><td style="padding: 6px; border: 1px solid #DADCE0; text-align: center;">3.0</td><td style="padding: 6px; border: 1px solid #DADCE0; text-align: center;">800</td><td style="padding: 6px; border: 1px solid #DADCE0; text-align: center;">10.0</td><td style="padding: 6px; border: 1px solid #DADCE0;">最高水平</td></tr>
+                                </tbody>
+                            </table>
+                        </details>
+                    </div>
+                </div>
             `;
+
+            // ZPD 最近发展区
+            if (result.zpd) {
+                html += `
+                    <div class="section">
+                        <h2>🎯 最近发展区（ZPD）</h2>
+                        <div style="background: #E8F0FE; padding: 20px; border-radius: 8px; border-left: 4px solid #4285F4;">
+                            <p style="margin: 8px 0; font-size: 1.1rem;"><strong>推荐题目难度范围</strong>: ${result.zpd.recommended_range}</p>
+                            <p style="margin: 8px 0; line-height: 1.8; color: #5F6368;">
+                                这个范围是您通过努力可以掌握的题目难度。建议优先练习难度在 <strong>${result.zpd.lower.toFixed(1)}</strong> 到 <strong>${result.zpd.upper.toFixed(1)}</strong> 之间的题目，
+                                既能巩固基础，又能适当挑战自己。
+                            </p>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // 能力预测
+            if (result.prediction) {
+                html += `
+                    <div class="section">
+                        <h2>📈 能力预测</h2>
+                        <div style="background: #FFF3E0; padding: 20px; border-radius: 8px; border-left: 4px solid #FF9800;">
+                            <p style="margin: 8px 0;"><strong>3个月后预测能力值</strong>: ${result.prediction.predicted_theta.toFixed(2)}</p>
+                            <p style="margin: 8px 0;"><strong>预测标准分数</strong>: ${result.prediction.predicted_scaled_score}</p>
+                            <p style="margin: 8px 0;"><strong>预期成长速度</strong>: 每月 ${result.prediction.growth_rate.toFixed(2)} 个能力单位</p>
+                            <p style="margin: 8px 0;"><strong>预测置信度</strong>: ${(result.prediction.confidence * 100).toFixed(0)}%</p>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // 推荐学习目标
+            if (result.goals) {
+                html += `
+                    <div class="section">
+                        <h2>🎯 推荐学习目标</h2>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 16px;">
+                            <div style="background: #E8F0FE; padding: 20px; border-radius: 8px; border-left: 4px solid #4285F4;">
+                                <h3 style="margin-top: 0; color: #1A73E8;">短期目标（1-2个月）</h3>
+                                <div style="font-size: 1.5rem; font-weight: bold; color: #1A73E8; margin: 12px 0;">能力值: ${result.goals.short_term.theta}</div>
+                                <div style="font-size: 0.9rem; color: #5F6368; margin-bottom: 12px;">
+                                    标准分数: ${result.goals.short_term.scaled_score} | 年级等值: ${result.goals.short_term.ge}
+                                </div>
+                                <p style="margin: 0; line-height: 1.6; color: #5F6368; font-size: 0.9rem;">${result.goals.short_term.description}</p>
+                            </div>
+                            <div style="background: #E8F5E9; padding: 20px; border-radius: 8px; border-left: 4px solid #34A853;">
+                                <h3 style="margin-top: 0; color: #1E7E34;">长期目标（3-6个月）</h3>
+                                <div style="font-size: 1.5rem; font-weight: bold; color: #1E7E34; margin: 12px 0;">能力值: ${result.goals.long_term.theta}</div>
+                                <div style="font-size: 0.9rem; color: #5F6368; margin-bottom: 12px;">
+                                    标准分数: ${result.goals.long_term.scaled_score} | 年级等值: ${result.goals.long_term.ge}
+                                </div>
+                                <p style="margin: 0; line-height: 1.6; color: #5F6368; font-size: 0.9rem;">${result.goals.long_term.description}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // 测试频率建议
+            if (result.testingFrequency) {
+                html += `
+                    <div class="section">
+                        <h2>📅 测试频率建议</h2>
+                        <div style="background: #E8F5E9; padding: 20px; border-radius: 8px; border-left: 4px solid #34A853;">
+                            <p style="margin: 8px 0; font-size: 1.1rem;"><strong>推荐频率</strong>: ${result.testingFrequency.frequency}</p>
+                            <p style="margin: 8px 0; line-height: 1.8; color: #5F6368;">${result.testingFrequency.reason}</p>
+                            <div style="background: white; padding: 16px; border-radius: 8px; margin-top: 16px; border-left: 4px solid #34A853;">
+                                <p style="margin: 8px 0; font-weight: 500;">💡 <strong>成长追踪建议</strong></p>
+                                <p style="margin: 8px 0; line-height: 1.8; color: #5F6368;">${result.testingFrequency.suggestion}</p>
+                                <p style="margin: 8px 0; line-height: 1.8; color: #5F6368;">您可以记录每次测试的以下数据：</p>
+                                <ul style="margin: 8px 0; padding-left: 24px; line-height: 1.8; color: #5F6368;">
+                                    <li>测试日期</li>
+                                    <li>能力值（theta）</li>
+                                    <li>标准分数（Scaled Score）</li>
+                                    <li>年级等值（GE）</li>
+                                    <li>ZPD 范围</li>
+                                </ul>
+                                <p style="margin: 8px 0; line-height: 1.8; color: #5F6368;">将这些数据绘制成趋势图，可以直观地看到自己的进步轨迹！</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // 技能诊断
+            if (result.skillDiagnosis) {
+                html += `
+                    <div class="section">
+                        <h2>🔍 技能诊断</h2>
+                        ${result.skillDiagnosis.most_common_error ? `
+                        <div style="background: #FFEBEE; padding: 20px; border-radius: 8px; border-left: 4px solid #EA4335; margin-bottom: 20px;">
+                            <h3 style="margin-top: 0;">错误类型分析</h3>
+                            <p style="margin: 8px 0;"><strong>最常见错误类型</strong>: ${result.skillDiagnosis.most_common_error}</p>
+                            <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 16px;">
+                                ${Object.entries(result.skillDiagnosis.error_patterns).map(([type, count]) => `
+                                    <div style="display: flex; align-items: center; gap: 8px; padding: 8px 16px; background: white; border-radius: 4px; border-left: 3px solid #EA4335;">
+                                        <span style="font-weight: 500; color: #333;">${type}</span>
+                                        <span style="color: #EA4335; font-weight: 600;">${count} 次</span>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                        ` : ''}
+                    </div>
+                `;
+            }
             
             // 难度分布
             if (result.difficultyStats && result.difficultyStats.distribution) {

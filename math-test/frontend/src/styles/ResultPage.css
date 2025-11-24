@@ -208,6 +208,299 @@
   font-size: 1.8rem !important;
 }
 
+/* ZPD 最近发展区 */
+.zpd-section {
+  background: white;
+  padding: 24px;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.zpd-info {
+  margin-top: 16px;
+}
+
+.zpd-explanation {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-top: 12px;
+  font-size: 0.9rem;
+}
+
+/* 预测性分析 */
+.prediction-section {
+  background: white;
+  padding: 24px;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow-sm);
+  border-left: 4px solid var(--google-blue);
+}
+
+.prediction-info p {
+  margin: 8px 0;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.prediction-info strong {
+  color: var(--text-primary);
+}
+
+/* 推荐目标 */
+.goals-section {
+  background: white;
+  padding: 24px;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.goals-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 16px;
+}
+
+.goal-item {
+  padding: 20px;
+  background: var(--google-blue-light);
+  border-radius: 8px;
+  border-left: 4px solid var(--google-blue);
+}
+
+.goal-item h3 {
+  color: var(--text-primary);
+  margin-bottom: 12px;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.goal-value {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--google-blue);
+  margin-bottom: 8px;
+}
+
+.goal-detail {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+}
+
+.goal-description {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* 测试频率建议 */
+.testing-frequency-section {
+  background: white;
+  padding: 24px;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow-sm);
+  border-left: 4px solid var(--google-green);
+}
+
+.frequency-info p {
+  margin: 12px 0;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.frequency-info strong {
+  color: var(--text-primary);
+}
+
+.growth-tracking-tip {
+  background: #E8F5E9;
+  padding: 16px;
+  border-radius: 8px;
+  margin-top: 16px;
+  border-left: 4px solid var(--google-green);
+}
+
+.growth-tracking-tip p {
+  margin: 8px 0;
+  color: var(--text-primary);
+}
+
+.growth-tracking-tip ul {
+  margin: 12px 0;
+  padding-left: 24px;
+  color: var(--text-secondary);
+}
+
+.growth-tracking-tip li {
+  margin: 4px 0;
+}
+
+/* 分数换算关系说明 */
+.score-explanation-section {
+  background: white;
+  padding: 24px;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow-sm);
+  border-left: 4px solid var(--google-blue);
+}
+
+.explanation-content {
+  margin-top: 16px;
+}
+
+.explanation-content p {
+  margin: 12px 0;
+  line-height: 1.8;
+  color: var(--text-secondary);
+}
+
+.explanation-content strong {
+  color: var(--text-primary);
+}
+
+.explanation-content details {
+  margin-top: 16px;
+}
+
+.explanation-content table {
+  margin-top: 12px;
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.explanation-content th,
+.explanation-content td {
+  padding: 8px;
+  border: 1px solid #DADCE0;
+  text-align: center;
+}
+
+.explanation-content thead tr {
+  background: #E8F0FE;
+}
+
+.explanation-content tbody tr:nth-child(even) {
+  background: #F8F9FA;
+}
+
+/* 技能诊断 */
+.skill-diagnosis-section {
+  background: white;
+  padding: 24px;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.skill-diagnosis-section h3 {
+  color: var(--text-primary);
+  margin: 24px 0 16px 0;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.error-pattern-section {
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.error-patterns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.error-pattern-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: #FFEBEE;
+  border-radius: 4px;
+  border-left: 3px solid #EA4335;
+}
+
+.error-type {
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.error-count {
+  color: #EA4335;
+  font-weight: 600;
+}
+
+.subskill-analysis {
+  margin-top: 16px;
+}
+
+.knowledge-subskill-item {
+  margin-bottom: 24px;
+  padding: 16px;
+  background: #F5F5F5;
+  border-radius: 8px;
+}
+
+.knowledge-subskill-item h4 {
+  color: var(--text-primary);
+  margin-bottom: 12px;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.subskills-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.subskill-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px;
+  background: white;
+  border-radius: 4px;
+}
+
+.subskill-name {
+  min-width: 120px;
+  font-weight: 500;
+  color: var(--text-primary);
+  font-size: 0.875rem;
+}
+
+.subskill-progress {
+  flex: 1;
+  height: 6px;
+  background: #e0e0e0;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.subskill-progress-bar {
+  height: 100%;
+  background: var(--google-blue);
+  transition: width 0.3s;
+  border-radius: 3px;
+}
+
+.subskill-mastery {
+  min-width: 80px;
+  text-align: right;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
 @media (max-width: 768px) {
   .result-summary {
     grid-template-columns: 1fr;
@@ -215,6 +508,19 @@
   
   .knowledge-grid {
     grid-template-columns: 1fr;
+  }
+
+  .goals-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .subskill-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .subskill-progress {
+    width: 100%;
   }
 }
 

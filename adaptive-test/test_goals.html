@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>目标逻辑测试</title>
+</head>
+<body>
+    <h1>目标推荐逻辑测试</h1>
+    <div id="results"></div>
+    <script src="js/adaptive.js"></script>
+    <script>
+        const irt = new IRTAlgorithm();
+        const testCases = [1.85, 0.5, -0.5, 2.0];
+        let html = '';
+        
+        testCases.forEach(currentTheta => {
+            const zpd = irt.calculateZPD(currentTheta);
+            const goals = irt.recommendGoals(currentTheta, zpd);
+            
+            const isValid = goals.long_term.theta > goals.short_term.theta && 
+                           goals.short_term.theta > currentTheta;
+            
+            html += `
+                <div style="border: 1px solid #ccc; padding: 16px; margin: 16px 0; border-radius: 8px;">
+                    <h3>当前能力值: ${currentTheta}</h3>
+                    <p>ZPD 范围: ${zpd.recommended_range}</p>
+                    <p>短期目标: ${goals.short_term.theta} ${goals.short_term.theta > currentTheta ? '✅' : '❌'}</p>
+                    <p>长期目标: ${goals.long_term.theta} ${goals.long_term.theta > goals.short_term.theta ? '✅' : '❌'}</p>
+                    <p><strong>${isValid ? '✅ 逻辑正确' : '❌ 逻辑错误'}</strong></p>
+                </div>
+            `;
+        });
+        
+        document.getElementById('results').innerHTML = html;
+    </script>
+</body>
+</html>

@@ -313,10 +313,28 @@ class AdaptiveTestEngine {
         // 生成具体的学习建议
         const suggestions = this._generateSuggestions(knowledgePointStats, semesterStats, abilityLevel);
 
+        // 计算新指标（STAR/AR 系统借鉴）
+        const scaledScore = this.irt.calculateScaledScore(this.currentAbility);
+        const gradeEquivalent = this.irt.calculateGradeEquivalent(this.currentAbility);
+        const zpd = this.irt.calculateZPD(this.currentAbility);
+        const prediction = this.irt.predictFutureAbility(this.currentAbility, 3);
+        const testingFrequency = this.irt.recommendTestingFrequency(this.currentAbility);
+        const goals = this.irt.recommendGoals(this.currentAbility, zpd);
+
+        // 技能诊断（简化版）
+        const skillDiagnosis = this._diagnoseSkills();
+
         return {
             sessionId: this.sessionId,
             ability: this.currentAbility,
             abilityLevel,
+            scaledScore,  // 新增：标准分数
+            gradeEquivalent,  // 新增：年级等值
+            zpd,  // 新增：最近发展区
+            prediction,  // 新增：预测性分析
+            testingFrequency,  // 新增：测试频率建议
+            goals,  // 新增：推荐目标
+            skillDiagnosis,  // 新增：技能诊断
             totalQuestions,
             correctCount,
             correctRate,
@@ -329,6 +347,41 @@ class AdaptiveTestEngine {
                 isCorrect: r.isCorrect,
                 abilityBefore: r.abilityBefore
             }))
+        };
+    }
+
+    /**
+     * 技能诊断（简化版）
+     */
+    _diagnoseSkills() {
+        const errorPatterns = {
+            '计算错误': 0,
+            '概念理解错误': 0,
+            '方法选择错误': 0,
+            '审题错误': 0,
+            '公式应用错误': 0
+        };
+
+        // 根据题目难度和知识点推断错误类型
+        for (const response of this.responses) {
+            if (!response.isCorrect) {
+                const difficulty = response.question.difficulty;
+                if (difficulty < 0) {
+                    errorPatterns['计算错误']++;
+                } else if (difficulty < 0.5) {
+                    errorPatterns['概念理解错误']++;
+                } else {
+                    errorPatterns['方法选择错误']++;
+                }
+            }
+        }
+
+        const mostCommonError = Object.entries(errorPatterns)
+            .sort((a, b) => b[1] - a[1])[0][0];
+
+        return {
+            error_patterns: errorPatterns,
+            most_common_error: mostCommonError
         };
     }
     

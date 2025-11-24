@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>新功能测试</title>
+</head>
+<body>
+    <h1>新功能测试</h1>
+    <script src="js/adaptive.js"></script>
+    <script>
+        const irt = new IRTAlgorithm();
+        
+        // 测试新功能
+        const testTheta = 0.5;
+        
+        console.log('测试能力值:', testTheta);
+        console.log('标准分数:', irt.calculateScaledScore(testTheta));
+        console.log('年级等值:', irt.calculateGradeEquivalent(testTheta));
+        console.log('ZPD:', irt.calculateZPD(testTheta));
+        console.log('预测:', irt.predictFutureAbility(testTheta));
+        console.log('测试频率:', irt.recommendTestingFrequency(testTheta));
+        
+        const zpd = irt.calculateZPD(testTheta);
+        console.log('推荐目标:', irt.recommendGoals(testTheta, zpd));
+        
+        document.body.innerHTML += '<p>✅ 所有新功能方法都存在！</p>';
+        document.body.innerHTML += '<p>请打开浏览器控制台查看详细输出</p>';
+    </script>
+</body>
+</html>

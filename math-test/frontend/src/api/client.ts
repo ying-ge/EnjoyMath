@@ -53,6 +53,53 @@ export interface TestResult {
   session: TestSession
   final_ability: number
   ability_level: string
+  scaled_score?: number  // 标准分数
+  grade_equivalent?: number  // 年级等值分数
+  zpd?: {  // 最近发展区
+    lower: number
+    upper: number
+    recommended_range: string
+  }
+  prediction?: {  // 预测性分析
+    predicted_theta: number
+    predicted_scaled_score: number
+    growth_rate: number
+    confidence: number
+    time_horizon_months: number
+  }
+  skill_diagnosis?: {  // 技能诊断
+    knowledge_diagnosis: Record<string, {
+      subskills: Record<string, {
+        total: number
+        correct: number
+        mastery?: number
+        mastery_percent?: number
+      }>
+      total_questions: number
+      correct_questions: number
+    }>
+    error_patterns: Record<string, number>
+    most_common_error?: string
+  }
+  testing_frequency?: {  // 测试频率建议
+    frequency: string
+    reason: string
+    suggestion: string
+  }
+  goals?: {  // 推荐目标
+    short_term: {
+      theta: number
+      scaled_score: number
+      ge: number
+      description: string
+    }
+    long_term: {
+      theta: number
+      scaled_score: number
+      ge: number
+      description: string
+    }
+  }
   total_questions: number
   correct_count: number
   accuracy: number
@@ -62,7 +109,7 @@ export interface TestResult {
     mastery: number
     mastery_percent: number
   }>
-  semester_stats?: Record<string, {  // 新增：学期统计
+  semester_stats?: Record<string, {
     correct: number
     total: number
     accuracy: number

@@ -142,6 +142,27 @@ def get_test_result(session_id):
     # 计算能力等级
     ability_level = test_engine.get_ability_level(session.current_ability)
     
+    # 计算标准分数（Scaled Score）
+    scaled_score = test_engine.calculate_scaled_score(session.current_ability)
+    
+    # 计算年级等值分数（GE）
+    grade_equivalent = test_engine.calculate_grade_equivalent(session.current_ability)
+    
+    # 计算最近发展区（ZPD）
+    zpd = test_engine.calculate_zpd(session.current_ability)
+    
+    # 预测性分析
+    prediction = test_engine.predict_future_ability(session.current_ability, time_horizon_months=3)
+    
+    # 技能诊断
+    skill_diagnosis = test_engine.diagnose_skill_levels(session_id)
+    
+    # 推荐测试频率
+    testing_frequency = test_engine.recommend_testing_frequency(session.current_ability)
+    
+    # 推荐目标
+    goals = test_engine.recommend_goals(session.current_ability, zpd)
+    
     # 生成学习建议
     suggestions = test_engine.generate_suggestions(knowledge_stats, session.current_ability)
     
@@ -149,11 +170,18 @@ def get_test_result(session_id):
         'session': session.to_dict(),
         'final_ability': session.current_ability,
         'ability_level': ability_level,
+        'scaled_score': scaled_score,  # 新增：标准分数
+        'grade_equivalent': grade_equivalent,  # 新增：年级等值分数
+        'zpd': zpd,  # 新增：最近发展区
+        'prediction': prediction,  # 新增：预测性分析
+        'skill_diagnosis': skill_diagnosis,  # 新增：技能诊断
+        'testing_frequency': testing_frequency,  # 新增：测试频率建议
+        'goals': goals,  # 新增：推荐目标
         'total_questions': session.total_questions,
         'correct_count': sum(1 for r in responses if r.is_correct),
         'accuracy': sum(1 for r in responses if r.is_correct) / len(responses) if responses else 0,
         'knowledge_stats': knowledge_stats,
-        'semester_stats': semester_stats,  # 新增：学期统计
+        'semester_stats': semester_stats,
         'suggestions': suggestions,
         'responses': [r.to_dict() for r in responses]
     })
