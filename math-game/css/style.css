@@ -1,0 +1,436 @@
+/* 数学冲刺挑战游戏样式 */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Noto Sans SC', sans-serif;
+    overflow-x: hidden;
+}
+
+/* 标题字体 */
+.font-mono {
+    font-family: 'Orbitron', monospace;
+}
+
+/* 背景动画 */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.2) 0%, transparent 50%);
+    z-index: -1;
+    animation: backgroundShift 10s ease-in-out infinite alternate;
+}
+
+@keyframes backgroundShift {
+    0% { transform: rotate(0deg) scale(1); }
+    100% { transform: rotate(5deg) scale(1.1); }
+}
+
+/* 按钮悬停效果 */
+.transform {
+    transition: all 0.3s ease;
+}
+
+.transform:hover {
+    transform: translateY(-2px) scale(1.02);
+}
+
+/* 选项按钮样式 */
+.option-button {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(147, 51, 234, 0.1));
+    border: 2px solid rgba(147, 51, 234, 0.3);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    text-align: left;
+}
+
+/* 学期按钮样式 */
+.semester-button {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(139, 92, 246, 0.2));
+    border: 2px solid rgba(139, 92, 246, 0.4);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+}
+
+.semester-button:hover {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(139, 92, 246, 0.3));
+    border-color: rgba(139, 92, 246, 0.6);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(139, 92, 246, 0.3);
+}
+
+/* 当前学期显示样式 */
+#currentSemesterDisplay {
+    animation: slideInDown 0.5s ease;
+    border: 2px solid rgba(147, 51, 234, 0.6);
+}
+
+@keyframes slideInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 选项标签高亮 */
+.option-button::first-letter {
+    font-weight: 900;
+    font-size: 1.2em;
+    color: #fbbf24;
+    text-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+    margin-right: 0.5em;
+}
+
+.option-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.option-button:hover::before {
+    left: 100%;
+}
+
+.option-button:hover {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(147, 51, 234, 0.2));
+    border-color: rgba(147, 51, 234, 0.6);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(147, 51, 234, 0.3);
+}
+
+.option-button.correct {
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.3), rgba(16, 185, 129, 0.3));
+    border-color: rgba(34, 197, 94, 0.8);
+    animation: correctPulse 0.6s ease;
+}
+
+.option-button.incorrect {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.3), rgba(220, 38, 38, 0.3));
+    border-color: rgba(239, 68, 68, 0.8);
+    animation: incorrectShake 0.6s ease;
+}
+
+@keyframes correctPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+@keyframes incorrectShake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    75% { transform: translateX(10px); }
+}
+
+/* 倒计时警告效果 */
+.timer-warning {
+    animation: timerWarning 1s ease-in-out infinite;
+}
+
+@keyframes timerWarning {
+    0%, 100% { color: #06b6d4; }
+    50% { color: #ef4444; transform: scale(1.1); }
+}
+
+.timer-critical {
+    animation: timerCritical 0.5s ease-in-out infinite;
+}
+
+@keyframes timerCritical {
+    0%, 100% { 
+        color: #dc2626; 
+        transform: scale(1.2);
+        text-shadow: 0 0 10px rgba(220, 38, 38, 0.8);
+    }
+    50% { 
+        color: #991b1b;
+        transform: scale(1.3);
+        text-shadow: 0 0 20px rgba(220, 38, 38, 1);
+    }
+}
+
+/* 连击效果 */
+.combo-effect {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 4rem;
+    font-weight: 900;
+    color: #fbbf24;
+    text-shadow: 0 0 20px rgba(251, 191, 36, 0.8);
+    z-index: 1000;
+    pointer-events: none;
+    animation: comboPopup 1s ease-out forwards;
+}
+
+@keyframes comboPopup {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.5);
+    }
+    50% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.5);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(2);
+    }
+}
+
+/* 得分动画 */
+.score-popup {
+    position: fixed;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #10b981;
+    text-shadow: 0 0 10px rgba(16, 185, 129, 0.8);
+    z-index: 999;
+    pointer-events: none;
+    animation: scoreFloat 2s ease-out forwards;
+}
+
+@keyframes scoreFloat {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-100px);
+    }
+}
+
+/* 进度条动画 */
+.progress-bar-fill {
+    background: linear-gradient(90deg, #10b981, #3b82f6, #8b5cf6);
+    background-size: 200% 100%;
+    animation: progressGradient 3s ease-in-out infinite;
+}
+
+@keyframes progressGradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* 知识点按钮样式 */
+.knowledge-point-button {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(236, 72, 153, 0.1));
+    border: 2px solid rgba(139, 92, 246, 0.3);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.knowledge-point-button::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.4), transparent);
+    transition: all 0.5s ease;
+    transform: translate(-50%, -50%);
+}
+
+.knowledge-point-button:hover::after {
+    width: 300px;
+    height: 300px;
+}
+
+.knowledge-point-button:hover {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(236, 72, 153, 0.2));
+    border-color: rgba(139, 92, 246, 0.6);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(139, 92, 246, 0.3);
+}
+
+/* 排行榜样式 */
+.high-score-item {
+    background: linear-gradient(135deg, rgba(251, 191, 36, 0.1), rgba(245, 158, 11, 0.1));
+    border-left: 4px solid #fbbf24;
+    transition: all 0.3s ease;
+}
+
+.high-score-item:hover {
+    background: linear-gradient(135deg, rgba(251, 191, 36, 0.2), rgba(245, 158, 11, 0.2));
+    transform: translateX(5px);
+}
+
+/* 新纪录闪光效果 */
+@keyframes newRecordFlash {
+    0%, 100% { 
+        background: linear-gradient(135deg, #fbbf24, #f59e0b);
+        transform: scale(1);
+    }
+    25%, 75% { 
+        background: linear-gradient(135deg, #fcd34d, #fbbf24);
+        transform: scale(1.05);
+    }
+    50% { 
+        background: linear-gradient(135deg, #fef3c7, #fcd34d);
+        transform: scale(1.1);
+    }
+}
+
+.new-record {
+    animation: newRecordFlash 2s ease-in-out infinite;
+}
+
+/* 粒子效果容器 */
+.particle-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 998;
+}
+
+.particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: #fbbf24;
+    border-radius: 50%;
+    animation: particleFall 3s linear infinite;
+}
+
+@keyframes particleFall {
+    0% {
+        opacity: 1;
+        transform: translateY(-100vh) rotate(0deg);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(100vh) rotate(720deg);
+    }
+}
+
+/* 震动效果 */
+@keyframes screenShake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-2px); }
+    20%, 40%, 60%, 80% { transform: translateX(2px); }
+}
+
+.screen-shake {
+    animation: screenShake 0.5s ease-in-out;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+    
+    #gameContainer {
+        padding: 0.5rem;
+    }
+    
+    .text-6xl {
+        font-size: 3rem;
+    }
+    
+    .text-2xl {
+        font-size: 1.25rem;
+    }
+    
+    .grid {
+        gap: 1rem;
+    }
+    
+    .bg-gray-800.bg-opacity-50.backdrop-blur-lg.rounded-2xl.p-8 {
+        padding: 1rem;
+    }
+}
+
+/* 加载动画 */
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(147, 51, 234, 0.3);
+    border-top: 4px solid #8b5cf6;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* 成就解锁动画 */
+@keyframes achievementUnlock {
+    0% {
+        transform: scale(0) rotate(180deg);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.2) rotate(360deg);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1) rotate(360deg);
+        opacity: 1;
+    }
+}
+
+.achievement-popup {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 10px 25px rgba(16, 185, 129, 0.5);
+    z-index: 1001;
+    animation: achievementUnlock 0.6s ease-out;
+}
+
+/* 模式切换动画 */
+.mode-transition {
+    animation: modeSwitch 0.8s ease-in-out;
+}
+
+@keyframes modeSwitch {
+    0% {
+        opacity: 0;
+        transform: scale(0.8) rotateX(90deg);
+    }
+    50% {
+        opacity: 0.5;
+        transform: scale(1.1) rotateX(45deg);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) rotateX(0deg);
+    }
+}

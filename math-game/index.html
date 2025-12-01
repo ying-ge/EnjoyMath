@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数学冲刺挑战 - 紧张刺激的记忆理解游戏</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-br from-gray-900 via-purple-900 to-violet-900 min-h-screen text-white font-sans">
+    <!-- 游戏容器 -->
+    <div id="gameContainer" class="container mx-auto px-4 py-8 max-w-6xl">
+        
+        <!-- 主菜单 -->
+        <div id="mainMenu" class="text-center">
+            <div class="mb-8">
+                <h1 class="text-6xl font-black mb-4 text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-red-600 font-mono tracking-wider">
+                    MATH RUSH
+                </h1>
+                <p class="text-2xl text-gray-300 mb-2">数学冲刺挑战</p>
+                <p class="text-lg text-gray-400">在紧张刺激的环境中记忆和理解数学概念</p>
+            </div>
+            
+            <!-- 学期选择区域 -->
+            <div class="bg-gray-800 bg-opacity-50 backdrop-blur-lg rounded-2xl p-6 border border-gray-700 mb-8">
+                <h3 class="text-2xl font-bold mb-4 text-purple-400">📚 选择学期</h3>
+                <p class="text-gray-300 mb-6">选择学习进度，游戏只包含该学期及之前的内容</p>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6" id="semesterSelection">
+                    <!-- 动态生成学期按钮 -->
+                </div>
+                <button onclick="clearSemester()" class="w-full bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-lg transition">
+                    清除学期限制
+                </button>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6 mb-8">
+                <div class="bg-gray-800 bg-opacity-50 backdrop-blur-lg rounded-2xl p-6 border border-gray-700">
+                    <h3 class="text-xl font-bold mb-3 text-yellow-400">⚡ 极限挑战</h3>
+                    <p class="text-gray-300 mb-4">60秒内答对尽可能多的题目，难度递增</p>
+                    <button onclick="startGame('speed')" class="w-full bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 text-white font-bold py-3 px-6 rounded-lg transform transition hover:scale-105">
+                        开始极限挑战
+                    </button>
+                </div>
+                
+                <div class="bg-gray-800 bg-opacity-50 backdrop-blur-lg rounded-2xl p-6 border border-gray-700">
+                    <h3 class="text-xl font-bold mb-3 text-blue-400">🎯 记忆风暴</h3>
+                    <p class="text-gray-300 mb-4">记住公式和概念，快速回答相关问题</p>
+                    <button onclick="startGame('memory')" class="w-full bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white font-bold py-3 px-6 rounded-lg transform transition hover:scale-105">
+                        开始记忆风暴
+                    </button>
+                </div>
+                
+                <div class="bg-gray-800 bg-opacity-50 backdrop-blur-lg rounded-2xl p-6 border border-gray-700">
+                    <h3 class="text-xl font-bold mb-3 text-green-400">🏆 知识竞速</h3>
+                    <p class="text-gray-300 mb-4">多个知识点竞速答题，考验综合能力</p>
+                    <button onclick="startGame('race')" class="w-full bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-bold py-3 px-6 rounded-lg transform transition hover:scale-105">
+                        开始知识竞速
+                    </button>
+                </div>
+                
+                <div class="bg-gray-800 bg-opacity-50 backdrop-blur-lg rounded-2xl p-6 border border-gray-700">
+                    <h3 class="text-xl font-bold mb-3 text-purple-400">📚 专题突破</h3>
+                    <p class="text-gray-300 mb-4">选择特定知识点进行深度练习</p>
+                    <button onclick="showKnowledgePoints()" class="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold py-3 px-6 rounded-lg transform transition hover:scale-105">
+                        选择知识点
+                    </button>
+                </div>
+            </div>
+            
+            <!-- 排行榜 -->
+            <div class="bg-gray-800 bg-opacity-50 backdrop-blur-lg rounded-2xl p-6 border border-gray-700">
+                <h3 class="text-xl font-bold mb-4 text-yellow-400">🏆 排行榜</h3>
+                <div id="highScores" class="space-y-2">
+                    <!-- 动态加载排行榜 -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- 游戏界面 -->
+        <div id="gameScreen" class="hidden">
+            <!-- 游戏头部信息 -->
+            <div class="flex justify-between items-center mb-6">
+                <div class="flex items-center space-x-4">
+                    <div class="bg-gray-800 bg-opacity-70 backdrop-blur rounded-lg px-4 py-2">
+                        <span class="text-gray-400">得分</span>
+                        <span id="score" class="text-2xl font-bold text-yellow-400 ml-2">0</span>
+                    </div>
+                    <div class="bg-gray-800 bg-opacity-70 backdrop-blur rounded-lg px-4 py-2">
+                        <span class="text-gray-400">连击</span>
+                        <span id="combo" class="text-2xl font-bold text-orange-400 ml-2">0</span>
+                    </div>
+                    <div class="bg-gray-800 bg-opacity-70 backdrop-blur rounded-lg px-4 py-2">
+                        <span class="text-gray-400">难度</span>
+                        <span id="difficulty" class="text-xl font-bold text-red-400 ml-2">1</span>
+                    </div>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <div id="timerContainer" class="bg-gray-800 bg-opacity-70 backdrop-blur rounded-lg px-4 py-2">
+                        <span class="text-gray-400">时间</span>
+                        <span id="timer" class="text-2xl font-bold text-cyan-400 ml-2">60</span>
+                    </div>
+                    <button onclick="pauseGame()" class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-lg transition">
+                        ⏸️ 暂停
+                    </button>
+                </div>
+            </div>
+            
+            <!-- 进度条 -->
+            <div class="mb-6">
+                <div class="w-full bg-gray-700 rounded-full h-3 overflow-hidden">
+                    <div id="progressBar" class="bg-gradient-to-r from-green-400 to-blue-500 h-full rounded-full transition-all duration-300" style="width: 0%"></div>
+                </div>
+            </div>
+            
+            <!-- 题目显示区 -->
+            <div class="bg-gray-800 bg-opacity-50 backdrop-blur-lg rounded-2xl p-8 mb-6 border border-gray-700">
+                <div class="flex justify-between items-start mb-4">
+                    <span id="questionCategory" class="bg-blue-600 px-3 py-1 rounded-full text-sm font-semibold"></span>
+                    <span id="questionNumber" class="text-gray-400">第 1 题</span>
+                </div>
+                <div id="questionContent" class="text-2xl font-bold mb-6 leading-relaxed"></div>
+                
+                <!-- 选项区域 -->
+                <div id="optionsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- 动态生成选项 -->
+                </div>
+            </div>
+            
+            <!-- 反馈区域 -->
+            <div id="feedback" class="hidden bg-gray-800 bg-opacity-50 backdrop-blur-lg rounded-2xl p-4 border border-gray-700">
+                <div id="feedbackContent" class="flex items-center justify-between">
+                    <div id="feedbackText" class="text-lg"></div>
+                    <div id="feedbackIcon" class="text-3xl"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 知识点选择界面 -->
+        <div id="knowledgePointsScreen" class="hidden text-center">
+            <h2 class="text-4xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
+                选择知识点
+            </h2>
+            <div id="knowledgePointsGrid" class="grid md:grid-cols-3 lg:grid-cols-4 gap-4 mb-6">
+                <!-- 动态生成知识点按钮 -->
+            </div>
+            <button onclick="backToMenu()" class="bg-gray-700 hover:bg-gray-600 px-6 py-3 rounded-lg transition">
+                ← 返回主菜单
+            </button>
+        </div>
+        
+        <!-- 暂停界面 -->
+        <div id="pauseScreen" class="hidden fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
+            <div class="bg-gray-800 rounded-2xl p-8 text-center max-w-md">
+                <h3 class="text-3xl font-bold mb-6">游戏暂停</h3>
+                <div class="space-y-4">
+                    <button onclick="resumeGame()" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition">
+                        继续游戏
+                    </button>
+                    <button onclick="restartGame()" class="w-full bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-3 px-6 rounded-lg transition">
+                        重新开始
+                    </button>
+                    <button onclick="backToMenu()" class="w-full bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-6 rounded-lg transition">
+                        返回主菜单
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 结果界面 -->
+        <div id="resultScreen" class="hidden text-center">
+            <h2 class="text-5xl font-black mb-6 text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-red-600">
+                挑战结束！
+            </h2>
+            
+            <div class="bg-gray-800 bg-opacity-50 backdrop-blur-lg rounded-2xl p-8 mb-6 border border-gray-700">
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <p class="text-gray-400 mb-2">最终得分</p>
+                        <p id="finalScore" class="text-4xl font-bold text-yellow-400">0</p>
+                    </div>
+                    <div>
+                        <p class="text-gray-400 mb-2">正确率</p>
+                        <p id="accuracy" class="text-4xl font-bold text-green-400">0%</p>
+                    </div>
+                    <div>
+                        <p class="text-gray-400 mb-2">最高连击</p>
+                        <p id="maxCombo" class="text-4xl font-bold text-orange-400">0</p>
+                    </div>
+                    <div>
+                        <p class="text-gray-400 mb-2">答题数量</p>
+                        <p id="totalQuestions" class="text-4xl font-bold text-blue-400">0</p>
+                    </div>
+                </div>
+                
+                <div id="newRecord" class="hidden bg-gradient-to-r from-yellow-500 to-orange-500 rounded-lg p-4 mb-6">
+                    <p class="text-2xl font-bold">🎉 新纪录！</p>
+                </div>
+                
+                <div class="space-y-4">
+                    <button onclick="playAgain()" class="w-full bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-bold py-3 px-6 rounded-lg transition">
+                        再玩一次
+                    </button>
+                    <button onclick="backToMenu()" class="w-full bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-lg transition">
+                        返回主菜单
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/game-engine.js"></script>
+    <script src="js/questions.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/effects.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
