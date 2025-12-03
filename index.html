@@ -141,9 +141,30 @@
         /* Tools Grid */
         .tools-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 24px;
             margin-bottom: 40px;
+        }
+
+        /* 调整不同卡片的背景渐变 */
+        .tool-card:nth-child(1) .tool-icon {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+        }
+
+        .tool-card:nth-child(2) .tool-icon {
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+        }
+
+        .tool-card:nth-child(3) .tool-icon {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+        }
+
+        .tool-card:nth-child(4) .tool-icon {
+            background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+        }
+
+        .tool-card:nth-child(5) .tool-icon {
+            background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
         }
         
         /* Tool Card */
@@ -295,18 +316,52 @@
             .header h1 {
                 font-size: 2.5rem;
             }
-            
+
             .header p {
                 font-size: 1rem;
             }
-            
+
             .tools-grid {
                 grid-template-columns: 1fr;
                 gap: 20px;
             }
-            
+
             .tool-card {
                 padding: 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px 15px;
+            }
+
+            .header h1 {
+                font-size: 2.2rem;
+            }
+
+            .tool-card {
+                padding: 20px;
+            }
+
+            .tool-icon {
+                width: 56px;
+                height: 56px;
+                font-size: 28px;
+                margin-bottom: 16px;
+            }
+
+            .tool-title {
+                font-size: 1.3rem;
+            }
+
+            .tool-description {
+                font-size: 0.95rem;
+            }
+
+            .tool-features li {
+                font-size: 0.8rem;
+                margin-bottom: 6px;
             }
         }
         
@@ -343,22 +398,23 @@
         
         <!-- Tools Grid -->
         <div class="tools-grid">
-            <!-- 数学水平测试系统 -->
+            <!-- 自适应数学水平测试系统 -->
             <a href="adaptive-test/index.html" class="tool-card">
                 <div class="tool-icon">📊</div>
                 <h2 class="tool-title">自适应数学水平测试</h2>
                 <p class="tool-description">
-                    探索你的数学能力边界。只需完成15-20道题目，系统会根据你的表现智能调整难度，帮你发现自己的强项和需要提升的地方。
+                    基于IRT（项目反应理论）算法的智能测试系统，只需15-20道题目就能精准评估你的数学能力水平，难度随你的表现自动调整。
                 </p>
                 <ul class="tool-features">
-                    <li>快速探索：15-20道题了解自己</li>
-                    <li>智能匹配：难度随你的能力调整</li>
-                    <li>能力地图：清晰看到自己的水平</li>
-                    <li>成长路径：发现下一步提升方向</li>
+                    <li>🎯 快速探索：15-20道题了解自己</li>
+                    <li>📊 智能匹配：难度随你的能力调整</li>
+                    <li>🗺️ 能力地图：清晰看到自己的水平</li>
+                    <li>📈 成长路径：发现下一步提升方向</li>
+                    <li>📚 涵盖初中数学19个知识点</li>
                 </ul>
                 <span class="tool-link">开始探索</span>
             </a>
-            
+
             <!-- 交互式题库 -->
             <a href="math-test/题库.html" class="tool-card">
                 <div class="tool-icon">📚</div>
@@ -367,20 +423,60 @@
                     203道精选题目等你挑战。随时练习，即时反馈，每道题都有详细解析。通过反复练习，不断巩固和提升自己的数学能力。
                 </p>
                 <ul class="tool-features">
-                    <li>203道精选题目</li>
-                    <li>随时开始练习</li>
-                    <li>即时查看结果</li>
-                    <li>深入理解每道题</li>
+                    <li>📖 203道精选题目</li>
+                    <li>⏰ 随时开始练习</li>
+                    <li>✅ 即时查看结果</li>
+                    <li>🔍 深入理解每道题</li>
+                    <li>📊 支持统计分析</li>
                 </ul>
                 <span class="tool-link">开始练习</span>
             </a>
+
+            <!-- 苏格拉底对话 -->
+            <a href="socratic-dialogue/index.html" class="tool-card">
+                <div class="tool-icon">👨‍🏫</div>
+                <h2 class="tool-title">苏格拉底对话</h2>
+                <p class="tool-description">
+                    通过苏格拉底式提问法启发初中生数学思维，支持自定义API密钥，让学习变得更加主动和深入。AI助教不会直接给出答案，而是通过提问引导你思考。
+                </p>
+                <ul class="tool-features">
+                    <li>🤔 苏格拉底式提问：引导深度思考</li>
+                    <li>🔧 自定义API：支持OpenAI、Claude等</li>
+                    <li>🎓 年级适配：7-9年级数学内容</li>
+                    <li>💭 思维启发：从不说出答案</li>
+                    <li>💬 智能对话：自然流畅的交流</li>
+                    <li>📚 主题选择：代数、几何、函数等</li>
+                    <li>💾 对话记录：自动保存学习历程</li>
+                    <li>📊 进度跟踪：分析学习效果</li>
+                </ul>
+                <span class="tool-link">开始对话</span>
+            </a>
+
+            <!-- 数学冲刺挑战游戏（记忆风暴专版） -->
+            <a href="math-game/index.html" class="tool-card">
+                <div class="tool-icon">🎮</div>
+                <h2 class="tool-title">记忆风暴挑战</h2>
+                <p class="tool-description">
+                    专注数学公式和概念记忆的挑战游戏，在90秒限时内快速回答相关问题，训练你的记忆力和反应速度。
+                </p>
+                <ul class="tool-features">
+                    <li>🧠 专注记忆：训练数学基础概念</li>
+                    <li>⏱️ 限时挑战：考验快速记忆反应</li>
+                    <li>📚 智能递增：难度随能力提升</li>
+                    <li>🏆 排行榜系统：记录最佳成绩</li>
+                    <li>🎓 学期选择：可筛选学习内容</li>
+                </ul>
+                <span class="tool-link">开始挑战</span>
+            </a>
         </div>
-        
+
+  
         <!-- Footer -->
         <div class="footer">
             <p>EnjoyMath © 2025 | 探索数学，成就更好的自己</p>
         </div>
     </div>
-</body>
+
+    </body>
 </html>
 

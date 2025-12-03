@@ -13,11 +13,36 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // 初始化游戏
 function initializeGame() {
-    gameEngine = new GameEngine();
+    try {
+        // 确保所有依赖类都已加载
+        if (typeof GameEngine === 'undefined') {
+            console.error('GameEngine 类未加载');
+            return;
+        }
 
-    // 初始化学期选择界面
-    if (gameEngine && typeof gameEngine.displaySemesters === 'function') {
-        gameEngine.displaySemesters();
+        if (typeof QuestionManager === 'undefined') {
+            console.error('QuestionManager 类未加载');
+            return;
+        }
+
+        if (typeof GameStorage === 'undefined') {
+            console.error('GameStorage 类未加载');
+            return;
+        }
+
+        gameEngine = new GameEngine();
+
+        // 初始化学期选择界面
+        if (gameEngine && typeof gameEngine.displaySemesters === 'function') {
+            console.log('正在初始化学期选择...');
+            gameEngine.displaySemesters();
+            console.log('学期选择初始化完成');
+        } else {
+            console.error('displaySemesters 方法不存在');
+        }
+    } catch (error) {
+        console.error('游戏初始化失败:', error);
+        // 不显示弹窗，只在控制台记录
     }
 
     // 添加页面可见性变化监听
@@ -34,7 +59,7 @@ function initializeGame() {
         }
     });
 
-    console.log('数学冲刺挑战游戏已初始化');
+    console.log('记忆风暴游戏已初始化');
 }
 
 // 绑定全局函数
@@ -77,12 +102,7 @@ function bindGlobalFunctions() {
         updateHighScores();
     };
     
-    window.showKnowledgePoints = function() {
-        if (gameEngine) {
-            gameEngine.showKnowledgePoints();
-        }
-    };
-
+  
     // 学期选择函数
     window.selectSemester = function(semester) {
         if (gameEngine) {
@@ -128,12 +148,19 @@ function bindGlobalFunctions() {
 
 // 更新高分显示
 function updateHighScores() {
-    const storage = new GameStorage();
-    const highScoresContainer = document.getElementById('highScores');
-    
-    if (!highScoresContainer) return;
-    
-    const overallLeaderboard = storage.getOverallLeaderboard();
+    try {
+        // 确保GameStorage类已加载
+        if (typeof GameStorage === 'undefined') {
+            console.warn('GameStorage 类未加载，跳过高分更新');
+            return;
+        }
+
+        const storage = new GameStorage();
+        const highScoresContainer = document.getElementById('highScores');
+
+        if (!highScoresContainer) return;
+
+        const overallLeaderboard = storage.getOverallLeaderboard();
     
     if (overallLeaderboard.length === 0) {
         highScoresContainer.innerHTML = '<p class="text-gray-400">暂无记录</p>';
@@ -214,19 +241,43 @@ window.addEventListener('load', function() {
     }, 100);
 });
 
-// 错误处理
+// 错误处理 - 仅记录严重错误，避免频繁弹出小窗口
 window.addEventListener('error', function(event) {
     console.error('游戏发生错误:', event.error);
-    
-    // 显示友好的错误提示
+
+    // 只在严重错误时显示提示，避免频繁弹出
+    if (event.error && event.error.name === 'TypeError' && event.error.message.includes('Cannot read propert')) {
+        // 静默处理常见的属性读取错误
+        return;
+    }
+
+    // 检查是否已经有错误提示显示，避免重复
+    const existingError = document.querySelector('.game-error-popup');
+    if (existingError) {
+        return;
+    }
+
+    // 只显示一次错误提示
     const errorDiv = document.createElement('div');
-    errorDiv.className = 'fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-red-600 text-white p-4 rounded-lg z-50';
+    errorDiv.className = 'game-error-popup fixed top-4 right-4 bg-yellow-600 text-white p-3 rounded-lg z-50 max-w-sm';
     errorDiv.innerHTML = `
-        <h3 class="font-bold mb-2">游戏出错</h3>
-        <p class="text-sm">页面刷新后可继续游戏</p>
-        <button onclick="location.reload()" class="mt-2 bg-white text-red-600 px-3 py-1 rounded text-sm">刷新页面</button>
+        <div class="flex items-center">
+            <span class="text-xl mr-2">⚠️</span>
+            <div>
+                <h3 class="font-bold text-sm">游戏提醒</h3>
+                <p class="text-xs">如遇问题请刷新页面</p>
+            </div>
+            <button onclick="this.parentElement.parentElement.remove()" class="ml-4 text-white hover:text-gray-200">×</button>
+        </div>
     `;
     document.body.appendChild(errorDiv);
+
+    // 5秒后自动移除
+    setTimeout(() => {
+        if (errorDiv.parentNode) {
+            errorDiv.parentNode.removeChild(errorDiv);
+        }
+    }, 5000);
 });
 
 // 性能监控
@@ -331,25 +382,103 @@ window.debugGame = {
         difficulty: gameEngine.difficulty,
         gameMode: gameEngine.gameMode
     } : null,
-    
+
     addScore: (points) => {
         if (gameEngine) {
             gameEngine.score += points;
             gameEngine.updateDisplay();
         }
     },
-    
+
     skipQuestion: () => {
         if (gameEngine && !gameEngine.isGameOver && !gameEngine.isPaused) {
             gameEngine.loadNextQuestion();
         }
     },
-    
+
     endTime: () => {
         if (gameEngine) {
             gameEngine.endGame();
         }
+    },
+
+    // 调试学期选择功能
+    initSemesters: () => {
+        if (gameEngine && gameEngine.displaySemesters) {
+            console.log('手动调用学期选择初始化...');
+            gameEngine.displaySemesters();
+            console.log('学期选择初始化完成');
+        } else {
+            console.error('gameEngine 或 displaySemesters 不存在');
+        }
+    },
+
+    // 显示学期选择容器信息
+    checkSemesterContainer: () => {
+        const container = document.getElementById('semesterSelection');
+        console.log('学期选择容器:', container);
+        console.log('容器内容:', container ? container.innerHTML : '容器不存在');
+        console.log('容器子元素:', container ? container.children.length : 0);
+        return container;
+    },
+
+    // 手动创建学期按钮
+    createSemesterButtons: () => {
+        console.log('手动创建学期按钮...');
+
+        const container = document.getElementById('semesterSelection');
+        if (!container) {
+            console.error('找不到学期选择容器');
+            return;
+        }
+
+        // 清空容器
+        container.innerHTML = '';
+
+        // 简单的学期数据
+        const semesters = [
+            { key: '七年级上', display: '七年级上学期' },
+            { key: '七年级下', display: '七年级下学期' },
+            { key: '八年级上', display: '八年级上学期' },
+            { key: '八年级下', display: '八年级下学期' },
+            { key: '九年级上', display: '九年级上学期' },
+            { key: '九年级下', display: '九年级下学期' }
+        ];
+
+        semesters.forEach((semester, index) => {
+            const button = document.createElement('button');
+            button.className = 'semester-button p-3 sm:p-4 rounded-lg text-white font-semibold transition-all duration-200 text-sm sm:text-base';
+            button.style.backgroundColor = '#8b5cf6';
+            button.style.borderColor = '#8b5cf6';
+            button.style.color = 'white';
+            button.style.border = '2px solid #8b5cf6';
+            button.style.marginBottom = '8px';
+            button.style.cursor = 'pointer';
+
+            button.innerHTML = `
+                <div class="font-bold text-sm sm:text-base">${semester.display}</div>
+                <div class="text-xs sm:text-sm opacity-75 mt-1">包含该学期及之前内容</div>
+            `;
+
+            button.onclick = () => {
+                console.log('点击学期:', semester.key);
+                alert(`选择了${semester.display}`);
+            };
+
+            container.appendChild(button);
+            console.log(`创建按钮 ${index + 1}: ${semester.display}`);
+        });
+
+        console.log(`共创建了 ${semesters.length} 个学期按钮`);
+        return container;
+    },
+
+    // 检查游戏引擎状态
+    checkGameEngine: () => {
+        console.log('游戏引擎状态:', gameEngine);
+        console.log('QuestionManager:', gameEngine ? gameEngine.questionManager : '不存在');
+        console.log('可用学期:', gameEngine && gameEngine.questionManager ? gameEngine.questionManager.getSemesters() : '未知');
     }
 };
 
-console.log('数学冲刺挑战游戏主模块加载完成');
+console.log('记忆风暴游戏主模块加载完成');

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试学段选择按钮</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background: linear-gradient(135deg, #1e293b 0%, #312e81 50%, #4c1d95 100%);
+            min-height: 100vh;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+<body class="text-white">
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+        <h1 class="text-3xl font-bold text-center mb-8">学段选择按钮测试</h1>
+        
+        <div class="glass-card rounded-2xl p-6">
+            <h2 class="text-xl font-bold mb-4 text-purple-400">学习进度</h2>
+            <p class="text-gray-300 text-sm mb-4">选择学段和年级后游戏只包含该年级及之前的内容</p>
+            
+            <!-- 学段按钮容器 -->
+            <div class="mb-4">
+                <h3 class="text-sm font-semibold mb-2 text-gray-300">选择学段</h3>
+                <div id="gradeContainer" class="space-y-2 mb-4">
+                    <!-- 动态生成学段按钮 -->
+                </div>
+            </div>
+
+            <!-- 学期选择区域 -->
+            <div id="semesterSection" class="hidden">
+                <h3 class="text-sm font-semibold mb-2 text-gray-300">选择年级</h3>
+                <div id="semesterContainer" class="space-y-3 mb-4">
+                    <!-- 动态生成学期按钮 -->
+                </div>
+            </div>
+
+            <div id="status" class="mt-4 p-3 bg-gray-700 bg-opacity-30 rounded-lg text-sm">
+                状态：等待初始化...
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 学段数据
+        const grades = [
+            {
+                key: 'elementary',
+                display: '小学',
+                description: '1-6年级基础内容',
+                semesters: [
+                    { key: '小学低年级', display: '小学低年级（1-3年级）' },
+                    { key: '小学高年级', display: '小学高年级（4-6年级）' }
+                ]
+            },
+            {
+                key: 'middle',
+                display: '初中',
+                description: '7-9年级内容',
+                semesters: [
+                    { key: '七年级上', display: '七年级上学期' },
+                    { key: '七年级下', display: '七年级下学期' },
+                    { key: '八年级上', display: '八年级上学期' },
+                    { key: '八年级下', display: '八年级下学期' },
+                    { key: '九年级上', display: '九年级上学期' },
+                    { key: '九年级下', display: '九年级下学期' }
+                ]
+            },
+            {
+                key: 'high',
+                display: '高中',
+                description: '10-12年级内容',
+                semesters: [
+                    { key: '高中必修一', display: '高中必修一' },
+                    { key: '高中必修二', display: '高中必修二' },
+                    { key: '高中必修三', display: '高中必修三' },
+                    { key: '高中选修', display: '高中选修系列' }
+                ]
+            }
+        ];
+
+        let gameState = {
+            selectedGrade: null,
+            selectedSemester: null
+        };
+
+        // 初始化学段选择
+        function initGradeSelection() {
+            const gradeContainer = document.getElementById('gradeContainer');
+            const status = document.getElementById('status');
+            
+            if (!gradeContainer) {
+                console.error('学段容器未找到');
+                status.textContent = '错误：学段容器未找到';
+                return;
+            }
+
+            gradeContainer.innerHTML = '';
+            status.textContent = '正在创建学段按钮...';
+
+            grades.forEach((grade, index) => {
+                const button = document.createElement('button');
+                button.className = 'w-full bg-gray-700 hover:bg-gray-600 text-white font-semibold py-3 px-4 rounded-lg text-left flex items-center justify-between transition-all duration-300 hover:transform hover:scale-105';
+                button.innerHTML = `
+                    <div>
+                        <div class="font-bold text-sm">${grade.display}</div>
+                        <div class="text-xs opacity-75">${grade.description}</div>
+                    </div>
+                    <svg class="w-4 h-4 opacity-60" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                    </svg>
+                `;
+
+                button.onclick = () => selectGrade(grade);
+                gradeContainer.appendChild(button);
+            });
+
+            const gradeButtons = gradeContainer.querySelectorAll('button');
+            status.textContent = `✓ 学段选择初始化完成，共创建了 ${gradeButtons.length} 个按钮`;
+            console.log('学段选择初始化完成，共创建了', gradeButtons.length, '个按钮');
+        }
+
+        // 选择学段
+        function selectGrade(grade) {
+            gameState.selectedGrade = grade;
+            gameState.selectedSemester = null;
+            
+            updateGradeButtons();
+            
+            // 显示学期选择区域
+            const semesterSection = document.getElementById('semesterSection');
+            if (semesterSection) {
+                semesterSection.classList.remove('hidden');
+            }
+            
+            // 初始化学期选择
+            initSemesterSelection();
+        }
+
+        // 初始化学期选择
+        function initSemesterSelection() {
+            const semesterContainer = document.getElementById('semesterContainer');
+            const status = document.getElementById('status');
+            
+            if (!semesterContainer) {
+                console.error('学期容器未找到');
+                return;
+            }
+
+            semesterContainer.innerHTML = '';
+
+            if (!gameState.selectedGrade) {
+                console.warn('未选择学段，无法初始化学期');
+                return;
+            }
+
+            const selectedGrade = grades.find(g => g.key === gameState.selectedGrade.key);
+            
+            if (!selectedGrade || !selectedGrade.semesters) {
+                console.error('选中的学段没有学期数据');
+                return;
+            }
+
+            selectedGrade.semesters.forEach((semester, index) => {
+                const button = document.createElement('button');
+                button.className = 'w-full bg-gray-700 hover:bg-gray-600 text-white font-semibold py-3 px-4 rounded-lg text-left flex items-center justify-between transition-all duration-300 hover:transform hover:scale-105';
+                button.innerHTML = `
+                    <div>
+                        <div class="font-bold text-sm">${semester.display}</div>
+                        <div class="text-xs opacity-75">包含该年级及之前内容</div>
+                    </div>
+                    <svg class="w-4 h-4 opacity-60" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                    </svg>
+                `;
+
+                button.onclick = () => selectSemester(semester);
+                semesterContainer.appendChild(button);
+            });
+
+            const semesterButtons = semesterContainer.querySelectorAll('button');
+            status.textContent = `✓ 学期选择初始化完成，共创建了 ${semesterButtons.length} 个按钮`;
+        }
+
+        // 选择学期
+        function selectSemester(semester) {
+            gameState.selectedSemester = semester;
+            updateSemesterButtons();
+        }
+
+        // 更新学段按钮状态
+        function updateGradeButtons() {
+            const gradeContainer = document.getElementById('gradeContainer');
+            const buttons = gradeContainer.querySelectorAll('button');
+            
+            buttons.forEach((button, index) => {
+                if (gameState.selectedGrade &&
+                    grades[index].key === gameState.selectedGrade.key) {
+                    button.className = button.className.replace('bg-gray-700 hover:bg-gray-600', 'bg-green-600 hover:bg-green-700');
+                    const icon = button.querySelector('svg');
+                    if (icon) {
+                        icon.classList.remove('opacity-60');
+                        icon.classList.add('text-white');
+                    }
+                } else {
+                    button.className = button.className.replace('bg-green-600 hover:bg-green-700', 'bg-gray-700 hover:bg-gray-600');
+                    const icon = button.querySelector('svg');
+                    if (icon) {
+                        icon.classList.add('opacity-60');
+                        icon.classList.remove('text-white');
+                    }
+                }
+            });
+        }
+
+        // 更新学期按钮状态
+        function updateSemesterButtons() {
+            if (!gameState.selectedGrade) return;
+
+            const semesterContainer = document.getElementById('semesterContainer');
+            const selectedGrade = grades.find(g => g.key === gameState.selectedGrade.key);
+            
+            if (!selectedGrade || !selectedGrade.semesters) return;
+
+            const buttons = semesterContainer.querySelectorAll('button');
+            buttons.forEach((button, index) => {
+                if (gameState.selectedSemester &&
+                    selectedGrade.semesters[index].key === gameState.selectedSemester.key) {
+                    button.className = button.className.replace('bg-gray-700 hover:bg-gray-600', 'bg-green-600 hover:bg-green-700');
+                    const icon = button.querySelector('svg');
+                    if (icon) {
+                        icon.classList.remove('opacity-60');
+                        icon.classList.add('text-white');
+                    }
+                } else {
+                    button.className = button.className.replace('bg-green-600 hover:bg-green-700', 'bg-gray-700 hover:bg-gray-600');
+                    const icon = button.querySelector('svg');
+                    if (icon) {
+                        icon.classList.add('opacity-60');
+                        icon.classList.remove('text-white');
+                    }
+                }
+            });
+        }
+
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('测试页面加载完成');
+            setTimeout(() => {
+                initGradeSelection();
+            }, 100);
+        });
+    </script>
+</body>
+</html>

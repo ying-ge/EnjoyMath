@@ -58,19 +58,70 @@ body::before {
 
 /* 学期按钮样式 */
 .semester-button {
-    background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(139, 92, 246, 0.2));
-    border: 2px solid rgba(139, 92, 246, 0.4);
+    background: #8b5cf6 !important;
+    border: 2px solid #8b5cf6 !important;
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
     text-align: center;
+    color: white !important;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    font-weight: 600;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    margin-bottom: 8px;
+    cursor: pointer;
+    min-height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .semester-button:hover {
-    background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(139, 92, 246, 0.3));
-    border-color: rgba(139, 92, 246, 0.6);
+    background: #7c3aed !important;
+    border-color: #7c3aed !important;
     transform: translateY(-2px);
     box-shadow: 0 10px 25px rgba(139, 92, 246, 0.3);
+}
+
+/* 学期按钮选中状态 */
+.semester-button.selected {
+    background: #22c55e !important;
+    border-color: #22c55e !important;
+    color: white !important;
+}
+
+.semester-button.selected::after {
+    content: '✓';
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: #16a34a;
+    color: white;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* 学期按钮强制可见 */
+#semesterSelection {
+    min-height: 100px;
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px;
+}
+
+#semesterSelection .semester-button {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
 }
 
 /* 当前学期显示样式 */
@@ -344,30 +395,102 @@ body::before {
     animation: screenShake 0.5s ease-in-out;
 }
 
-/* 响应式设计 */
-@media (max-width: 768px) {
+/* 响应式设计改进 */
+@media (max-width: 640px) {
     .container {
-        padding: 1rem;
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
     }
-    
+
     #gameContainer {
-        padding: 0.5rem;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
     }
-    
-    .text-6xl {
-        font-size: 3rem;
+
+    /* 移动端游戏界面优化 */
+    .grid-cols-2.sm\:grid-cols-4 {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.5rem;
     }
-    
-    .text-2xl {
-        font-size: 1.25rem;
-    }
-    
-    .grid {
-        gap: 1rem;
-    }
-    
-    .bg-gray-800.bg-opacity-50.backdrop-blur-lg.rounded-2xl.p-8 {
+
+    /* 选项按钮移动端优化 */
+    .option-button {
         padding: 1rem;
+        font-size: 0.9rem;
+    }
+
+    /* 移动端进度条优化 */
+    .progress-bar-fill {
+        background-size: 150% 100%;
+    }
+
+    /* 移动端动画性能优化 */
+    .transform:hover {
+        transform: translateY(-1px) scale(1.01);
+    }
+}
+
+@media (min-width: 641px) and (max-width: 768px) {
+    #gameContainer {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .lg\:grid-cols-2 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .text-6xl {
+        font-size: 2.5rem;
+        line-height: 1.2;
+    }
+
+    .text-5xl {
+        font-size: 2.25rem;
+    }
+
+    .text-4xl {
+        font-size: 2rem;
+    }
+
+    .text-3xl {
+        font-size: 1.75rem;
+    }
+
+    .text-2xl {
+        font-size: 1.5rem;
+    }
+
+    /* 确保移动端卡片间距合理 */
+    .bg-gray-800.bg-opacity-50.backdrop-blur-lg.rounded-2xl {
+        margin-bottom: 1rem;
+    }
+
+    .bg-gray-800.bg-opacity-50.backdrop-blur-lg.rounded-2xl.p-6 {
+        padding: 1.25rem;
+    }
+
+    .bg-gray-800.bg-opacity-50.backdrop-blur-lg.rounded-2xl.p-8 {
+        padding: 1.5rem;
+    }
+}
+
+/* 平板端优化 */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .lg\:sticky {
+        position: relative;
+    }
+
+    .lg\:top-8 {
+        top: 0;
+    }
+
+    .lg\:h-fit {
+        height: auto;
     }
 }
 

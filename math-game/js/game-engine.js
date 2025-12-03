@@ -521,36 +521,81 @@ class GameEngine {
 
     // 显示学期选择
     displaySemesters() {
+        console.log('开始初始化学期选择...');
+
         const container = document.getElementById('semesterSelection');
+        console.log('学期选择容器:', container);
+
+        if (!container) {
+            console.error('找不到学期选择容器 #semesterSelection');
+            return;
+        }
+
         container.innerHTML = '';
 
         const semesters = this.questionManager.getSemesters();
+        console.log('可用学期:', semesters);
 
-        semesters.forEach(semester => {
+        if (!semesters || semesters.length === 0) {
+            console.error('没有可用的学期数据');
+            container.innerHTML = '<p class="text-gray-400 text-center">暂无学期数据</p>';
+            return;
+        }
+
+        semesters.forEach((semester, index) => {
+            console.log(`处理学期 ${index + 1}: ${semester}`);
+
             const semesterInfo = this.questionManager.getSemesterInfo(semester);
+            console.log(`学期信息:`, semesterInfo);
+
+            if (!semesterInfo) {
+                console.error(`找不到学期信息: ${semester}`);
+                return;
+            }
+
             const button = document.createElement('button');
-            button.className = 'semester-button p-4 rounded-lg text-white font-semibold transition-all duration-200';
+            button.className = 'semester-button p-3 sm:p-4 rounded-lg text-white font-semibold transition-all duration-200 text-sm sm:text-base';
             button.style.backgroundColor = '#8b5cf6';
             button.style.borderColor = '#8b5cf6';
-            button.onclick = () => this.selectSemester(semester);
+            button.style.cursor = 'pointer';
+
+            // 添加调试属性
+            button.setAttribute('data-semester', semester);
+            button.title = `选择 ${semesterInfo.display}`;
+
+            button.onclick = () => {
+                console.log('点击学期按钮:', semester);
+                this.selectSemester(semester);
+            };
 
             button.innerHTML = `
-                <div class="text-lg font-bold">${semesterInfo.display}</div>
-                <div class="text-sm opacity-75">包含该学期及之前内容</div>
+                <div class="font-bold text-sm sm:text-base">${semesterInfo.display}</div>
+                <div class="text-xs sm:text-sm opacity-75 mt-1">包含该学期及之前内容</div>
             `;
 
             container.appendChild(button);
+            console.log(`已添加学期按钮: ${semester} (${semesterInfo.display})`);
         });
 
-        // 添加学期选中状态显示
+        console.log(`共添加了 ${container.children.length} 个学期按钮`);
+
+        // 显示学期选中状态或提示
         if (this.questionManager.currentSemester) {
             this.showCurrentSemester();
+            this.updateSemesterButtons();
+        } else {
+            // 显示无学期选择提示
+            const noSemesterHint = document.getElementById('noSemesterHint');
+            if (noSemesterHint) {
+                noSemesterHint.style.display = 'block';
+            }
         }
     }
 
     // 选择学期
     selectSemester(semester) {
         this.questionManager.setSemester(semester);
+        this.updateSemesterButtons();
         this.showCurrentSemester();
 
         // 更新知识点选择界面（如果正在显示）
@@ -566,6 +611,7 @@ class GameEngine {
     // 清除学期限制
     clearSemester() {
         this.questionManager.setSemester(null);
+        this.updateSemesterButtons();
         this.hideCurrentSemester();
 
         // 更新知识点选择界面（如果正在显示）
@@ -576,27 +622,69 @@ class GameEngine {
         // 显示清除效果
         this.effects.showNotification('已清除学期限制', 'info');
         this.effects.playSound('select');
+
+        // 显示无学期选择提示
+        const noSemesterHint = document.getElementById('noSemesterHint');
+        if (noSemesterHint) {
+            noSemesterHint.style.display = 'block';
+        }
+    }
+
+    // 更新学期按钮状态
+    updateSemesterButtons() {
+        const container = document.getElementById('semesterSelection');
+        if (!container) return;
+
+        const buttons = container.querySelectorAll('.semester-button');
+        const currentSemester = this.questionManager.currentSemester;
+
+        buttons.forEach((button, index) => {
+            const semesters = this.questionManager.getSemesters();
+            const buttonSemester = semesters[index];
+
+            if (currentSemester === buttonSemester) {
+                button.classList.add('selected');
+            } else {
+                button.classList.remove('selected');
+            }
+        });
     }
 
     // 显示当前选中的学期
     showCurrentSemester() {
-        // 移除已存在的显示
-        this.hideCurrentSemester();
+        const displayElement = document.getElementById('currentSemesterDisplay');
+        const hintElement = document.getElementById('noSemesterHint');
 
         if (this.questionManager.currentSemester) {
             const semesterInfo = this.questionManager.getSemesterInfo(this.questionManager.currentSemester);
-            const display = document.createElement('div');
-            display.id = 'currentSemesterDisplay';
-            display.className = 'bg-purple-600 bg-opacity-80 text-white px-4 py-2 rounded-lg text-center mb-4';
-            display.innerHTML = `
-                <div class="text-sm font-bold">📚 当前学期</div>
-                <div class="text-lg">${semesterInfo.display}</div>
-            `;
+            const currentSemesterText = document.getElementById('currentSemesterText');
 
-            // 插入到主菜单标题后面
-            const mainMenu = document.getElementById('mainMenu');
-            const h1 = mainMenu.querySelector('h1');
-            h1.parentNode.insertBefore(display, h1.nextSibling);
+            if (displayElement && currentSemesterText) {
+                // 使用已存在的HTML元素
+                displayElement.classList.remove('hidden');
+                currentSemesterText.textContent = semesterInfo.display;
+
+                if (hintElement) {
+                    hintElement.style.display = 'none';
+                }
+            } else {
+                // 回退到旧的显示方式
+                this.hideCurrentSemester();
+                const display = document.createElement('div');
+                display.id = 'currentSemesterDisplay';
+                display.className = 'bg-purple-600 bg-opacity-80 text-white px-4 py-2 rounded-lg text-center mb-4';
+                display.innerHTML = `
+                    <div class="text-sm font-bold">📚 当前学期</div>
+                    <div class="text-lg">${semesterInfo.display}</div>
+                `;
+
+                // 插入到主菜单标题后面
+                const mainMenu = document.getElementById('mainMenu');
+                const h1 = mainMenu.querySelector('h1');
+                h1.parentNode.insertBefore(display, h1.nextSibling);
+            }
+        } else {
+            this.hideCurrentSemester();
         }
     }
 
@@ -605,6 +693,12 @@ class GameEngine {
         const display = document.getElementById('currentSemesterDisplay');
         if (display) {
             display.remove();
+        }
+
+        // 隐藏无学期选择提示
+        const noSemesterHint = document.getElementById('noSemesterHint');
+        if (noSemesterHint) {
+            noSemesterHint.style.display = 'none';
         }
     }
 }

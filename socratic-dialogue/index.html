@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>苏格拉底对话 - 启发数学思维</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* 背景装饰 */
+        .bg-decoration {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(40px);
+            opacity: 0.6;
+            z-index: -1;
+        }
+
+        .bg-decoration:nth-child(1) {
+            top: -100px;
+            right: -100px;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .bg-decoration:nth-child(2) {
+            bottom: -150px;
+            left: -150px;
+            width: 400px;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* 主容器 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 头部 */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            letter-spacing: -1px;
+            background: linear-gradient(135deg, #fff 0%, #f0f0f0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* 配置区域 */
+        .config-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 32px;
+            margin-bottom: 32px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .config-section h2 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+            color: #4a5568;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .config-section h2 i {
+            color: #667eea;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: #4a5568;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        /* 按钮 */
+        .btn {
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-secondary {
+            background: #e2e8f0;
+            color: #4a5568;
+        }
+
+        .btn-secondary:hover {
+            background: #cbd5e0;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            color: white;
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(72, 187, 120, 0.3);
+        }
+
+        /* 聊天区域 */
+        .chat-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 32px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 500px;
+        }
+
+        .chat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .chat-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+        }
+
+        .status-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #48bb78;
+        }
+
+        .status-indicator.disconnected {
+            background: #f56565;
+        }
+
+        .status-indicator.connecting {
+            background: #ed8936;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .chat-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px 0;
+            margin-bottom: 24px;
+        }
+
+        .message {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 12px;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .message-avatar.socratic {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .message-avatar.user {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+        }
+
+        .message-content {
+            flex: 1;
+        }
+
+        .message-bubble {
+            background: #f7fafc;
+            padding: 16px 20px;
+            border-radius: 18px;
+            max-width: 80%;
+            position: relative;
+        }
+
+        .message.user .message-bubble {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            color: white;
+            margin-left: auto;
+        }
+
+        .message-bubble pre {
+            background: rgba(0, 0, 0, 0.1);
+            padding: 8px 12px;
+            border-radius: 8px;
+            margin: 8px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+        }
+
+        .message-bubble code {
+            background: rgba(0, 0, 0, 0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .message-time {
+            font-size: 0.75rem;
+            color: #718096;
+            margin-top: 4px;
+        }
+
+        /* 输入区域 */
+        .input-area {
+            display: flex;
+            gap: 12px;
+            align-items: flex-end;
+        }
+
+        .input-wrapper {
+            flex: 1;
+            position: relative;
+        }
+
+        .input-wrapper textarea {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 24px;
+            resize: none;
+            font-size: 1rem;
+            font-family: inherit;
+            min-height: 56px;
+            max-height: 120px;
+            line-height: 1.5;
+        }
+
+        .input-wrapper textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .send-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .send-btn:hover:not(:disabled) {
+            transform: scale(1.1);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .send-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* 加载动画 */
+        .typing-indicator {
+            display: flex;
+            gap: 4px;
+            padding: 16px 20px;
+            background: #f7fafc;
+            border-radius: 18px;
+            max-width: 80px;
+        }
+
+        .typing-indicator span {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #a0aec0;
+            animation: typing 1.4s infinite;
+        }
+
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes typing {
+            0%, 60%, 100% {
+                transform: translateY(0);
+                opacity: 0.4;
+            }
+            30% {
+                transform: translateY(-10px);
+                opacity: 1;
+            }
+        }
+
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 15px;
+            }
+
+            .header h1 {
+                font-size: 2.5rem;
+            }
+
+            .config-section,
+            .chat-section {
+                padding: 20px;
+            }
+
+            .input-area {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .send-btn {
+                width: 100%;
+                height: 48px;
+                border-radius: 12px;
+                margin-top: 8px;
+            }
+        }
+
+        /* 数学公式支持 */
+        .math-formula {
+            background: #f0f8ff;
+            border-left: 4px solid #667eea;
+            padding: 12px 16px;
+            margin: 8px 0;
+            border-radius: 0 8px 8px 0;
+            font-family: 'Times New Roman', serif;
+            font-style: italic;
+        }
+
+        /* 提示样式 */
+        .hint {
+            background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+            color: white;
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin: 8px 0;
+            position: relative;
+        }
+
+        .hint::before {
+            content: '💡';
+            margin-right: 8px;
+        }
+
+        /* AI生成的问题样式 */
+        .ai-questions {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin: 8px 0;
+            border-left: 4px solid #667eea;
+        }
+
+        .ai-questions li {
+            margin: 6px 0;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .ai-questions li:hover {
+            text-decoration: underline;
+            cursor: pointer;
+            opacity: 0.9;
+        }
+
+        /* 学生档案按钮 */
+        .profile-btn {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .profile-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(72, 187, 120, 0.3);
+        }
+
+        /* 学习进度指示器 */
+        .progress-indicator {
+            background: #e2e8f0;
+            border-radius: 12px;
+            padding: 12px 16px;
+            margin: 12px 0;
+            border-left: 4px solid #667eea;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #cbd5e0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- 背景装饰 -->
+    <div class="bg-decoration"></div>
+    <div class="bg-decoration"></div>
+
+    <div class="container">
+        <!-- 头部 -->
+        <div class="header">
+            <h1>苏格拉底对话</h1>
+            <p>通过苏格拉底式提问法，启发初中生数学思维，让学习变得更加主动和深入</p>
+        </div>
+
+        <!-- 配置区域 -->
+        <div class="config-section" id="configSection">
+            <h2><i class="fas fa-cog"></i> API 配置</h2>
+
+            <div class="form-group">
+                <label for="apiKey">API Key</label>
+                <input type="password" id="apiKey" placeholder="请输入您的 API Key（支持 OpenAI、Claude、智谱GLM等）" />
+            </div>
+
+            <div class="form-group">
+                <label for="apiProvider">API 提供商</label>
+                <select id="apiProvider">
+                    <option value="openai">OpenAI (GPT-3.5/GPT-4)</option>
+                    <option value="claude">Anthropic Claude</option>
+                    <option value="glm">智谱 GLM-4.6</option>
+                    <option value="custom">自定义 API</option>
+                </select>
+            </div>
+
+            <div class="form-group" id="customApiUrlGroup" style="display: none;">
+                <label for="customApiUrl">自定义 API 端点</label>
+                <input type="url" id="customApiUrl" placeholder="https://your-api-endpoint.com/chat" />
+            </div>
+
+            <div class="form-group">
+                <label for="gradeLevel">年级水平</label>
+                <select id="gradeLevel">
+                    <option value="7">七年级</option>
+                    <option value="8">八年级</option>
+                    <option value="9">九年级</option>
+                    <option value="all">全部年级</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="mathTopic">数学主题（可选）</label>
+                <select id="mathTopic">
+                    <option value="">不限主题</option>
+                    <option value="algebra">代数</option>
+                    <option value="geometry">几何</option>
+                    <option value="functions">函数</option>
+                    <option value="statistics">统计</option>
+                    <option value="probability">概率</option>
+                </select>
+            </div>
+
+            <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                <button class="btn btn-primary" onclick="testApi()">
+                    <i class="fas fa-plug"></i> 测试连接
+                </button>
+                <button class="btn btn-secondary" onclick="saveConfig()">
+                    <i class="fas fa-save"></i> 保存配置
+                </button>
+                <button class="btn btn-success" onclick="startChat()" id="startChatBtn">
+                    <i class="fas fa-comments"></i> 开始对话
+                </button>
+            </div>
+        </div>
+
+        <!-- 聊天区域 -->
+        <div class="chat-section" id="chatSection" style="display: none;">
+            <div class="chat-header">
+                <div class="chat-status">
+                    <div class="status-indicator" id="statusIndicator"></div>
+                    <span id="statusText">已连接</span>
+                </div>
+                <button class="btn btn-secondary" onclick="resetConfig()">
+                    <i class="fas fa-cog"></i> 重新配置
+                </button>
+            </div>
+
+            <div class="chat-container" id="chatContainer">
+                <!-- 欢迎消息 -->
+                <div class="message socratic">
+                    <div class="message-avatar socratic">苏</div>
+                    <div class="message-content">
+                        <div class="message-bubble">
+                            <strong>👋 你好！我是苏格拉底数学助教。</strong><br><br>
+                            我不会直接给你答案，而是通过提问来引导你思考。让我们一起探索数学的奥秘吧！<br><br>
+                            你可以：
+                            <ul style="margin: 8px 0; padding-left: 20px;">
+                                <li>提出你遇到的数学问题</li>
+                                <li>告诉我你正在学习的概念</li>
+                                <li>分享你的解题思路</li>
+                            </ul>
+                            <em>记住：思考的过程比答案更重要！</em>
+                        </div>
+                        <div class="message-time">刚刚</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-area">
+                <div class="input-wrapper">
+                    <textarea
+                        id="messageInput"
+                        placeholder="输入你的问题或想法... (Shift+Enter 换行)"
+                        rows="1"
+                    ></textarea>
+                </div>
+                <button class="send-btn" id="sendBtn" onclick="sendMessage()">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/storage.js"></script>
+    <script src="js/api-client.js"></script>
+    <script src="js/socratic-engine.js"></script>
+    <script src="js/ai-assistant.js"></script>
+    <script src="js/ui-controller.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

@@ -3,219 +3,2184 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>数学冲刺挑战 - 紧张刺激的记忆理解游戏</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <title>记忆风暴 - 数学公式概念记忆挑战</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background: linear-gradient(135deg, #1e293b 0%, #312e81 50%, #4c1d95 100%);
+            min-height: 100vh;
+        }
+        .font-mono {
+            font-family: 'Orbitron', monospace;
+        }
+        .game-button {
+            transition: all 0.3s ease;
+            transform: translateZ(0);
+        }
+        .game-button:hover {
+            transform: translateY(-2px) scale(1.02);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+    </style>
 </head>
-<body class="bg-gradient-to-br from-gray-900 via-purple-900 to-violet-900 min-h-screen text-white font-sans">
-    <!-- 游戏容器 -->
-    <div id="gameContainer" class="container mx-auto px-4 py-8 max-w-6xl">
-        
-        <!-- 主菜单 -->
-        <div id="mainMenu" class="text-center">
-            <div class="mb-8">
-                <h1 class="text-6xl font-black mb-4 text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-red-600 font-mono tracking-wider">
-                    MATH RUSH
-                </h1>
-                <p class="text-2xl text-gray-300 mb-2">数学冲刺挑战</p>
-                <p class="text-lg text-gray-400">在紧张刺激的环境中记忆和理解数学概念</p>
-            </div>
-            
-            <!-- 学期选择区域 -->
-            <div class="bg-gray-800 bg-opacity-50 backdrop-blur-lg rounded-2xl p-6 border border-gray-700 mb-8">
-                <h3 class="text-2xl font-bold mb-4 text-purple-400">📚 选择学期</h3>
-                <p class="text-gray-300 mb-6">选择学习进度，游戏只包含该学期及之前的内容</p>
-                <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6" id="semesterSelection">
-                    <!-- 动态生成学期按钮 -->
+<body class="text-white">
+    <div class="container mx-auto px-4 py-8 max-w-7xl">
+        <!-- 主标题 -->
+        <div class="text-center mb-12">
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-600 font-mono tracking-wider">
+                MEMORY STORM
+            </h1>
+            <p class="text-2xl sm:text-3xl text-gray-300 mb-4">记忆风暴</p>
+            <p class="text-base sm:text-lg text-gray-400 max-w-2xl mx-auto">在紧张刺激的环境中记忆和理解数学公式概念</p>
+        </div>
+
+        <div class="grid lg:grid-cols-3 gap-8">
+            <!-- 左侧：记忆风暴游戏区域 -->
+            <div class="lg:col-span-2">
+                <div class="glass-card rounded-2xl p-8">
+                    <div class="text-center mb-8">
+                        <div class="w-16 sm:w-20 lg:w-24 h-16 sm:h-20 lg:h-24 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6">
+                            <span class="text-2xl sm:text-3xl lg:text-4xl">🧠</span>
+                        </div>
+                        <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-600 font-mono tracking-wider">
+                            记忆风暴
+                        </h1>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-4 sm:gap-6 mb-6 sm:mb-8">
+                        <div class="glass-card rounded-lg p-4 sm:p-6">
+                            <h3 class="text-base sm:text-lg font-semibold mb-2 sm:mb-4 text-cyan-400 flex items-center">
+                                <svg class="w-4 sm:w-5 h-4 sm:h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
+                                </svg>
+                                游戏规则
+                            </h3>
+                            <ul class="space-y-2 sm:space-y-3 text-gray-300">
+                                <li class="flex items-start">
+                                    <span class="text-lg sm:text-xl mr-2 sm:mr-3">⏱️</span>
+                                    <div>
+                                        <div class="font-semibold text-sm sm:text-base">90秒限时挑战</div>
+                                        <div class="text-xs sm:text-sm opacity-75">在有限时间内答题</div>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-lg sm:text-xl mr-2 sm:mr-3">📚</span>
+                                    <div>
+                                        <div class="font-semibold text-sm sm:text-base">专注公式概念记忆</div>
+                                        <div class="text-xs sm:text-sm opacity-75">加深数学理解</div>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-lg sm:text-xl mr-2 sm:mr-3">🎯</span>
+                                    <div>
+                                        <div class="font-semibold text-sm sm:text-base">难度智能递增</div>
+                                        <div class="text-xs sm:text-sm opacity-75">逐步提升挑战</div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="glass-card rounded-lg p-4 sm:p-6">
+                            <h3 class="text-base sm:text-lg font-semibold mb-2 sm:mb-4 text-purple-400 flex items-center">
+                                <svg class="w-4 sm:w-5 h-4 sm:h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M6.672 1.911a1 1 0 10-1.932.518l.259.966a1 1 0 001.932-.518l-.26-.966zM2.429 4.74a1 1 0 10-.517 1.932l.966.259a1 1 0 00.517-1.932l-.966-.26zm8.814-.569a1 1 0 00-1.415-1.414l-.707.707a1 1 0 101.415 1.414l.707-.707zm-7.071 7.072l.707-.707A1 1 0 003.465 9.12l-.708.707a1 1 0 001.415 1.415zm3.2-5.171a1 1 0 00-1.3 1.3l4 10a1 1 0 001.823.075l1.38-2.759 3.018 3.02a1 1 0 001.414-1.415l-3.019-3.02 2.76-1.379a1 1 0 00-.076-1.822l-10-4z" clip-rule="evenodd"/>
+                                </svg>
+                                操作方式
+                            </h3>
+                            <ul class="space-y-2 sm:space-y-3 text-gray-300">
+                                <li class="flex items-start">
+                                    <span class="text-lg sm:text-xl mr-2 sm:mr-3">🖱️</span>
+                                    <div>
+                                        <div class="font-semibold text-sm sm:text-base">点击选择答案</div>
+                                        <div class="text-xs sm:text-sm opacity-75">鼠标操作</div>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-lg sm:text-xl mr-2 sm:mr-3">⌨️</span>
+                                    <div>
+                                        <div class="font-semibold text-sm sm:text-base">键盘快捷键</div>
+                                        <div class="text-xs sm:text-sm opacity-75">A/B/C/D 或 1/2/3/4</div>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-lg sm:text-xl mr-2 sm:mr-3">⏸️</span>
+                                    <div>
+                                        <div class="font-semibold text-sm sm:text-base">暂停功能</div>
+                                        <div class="text-xs sm:text-sm opacity-75">空格键暂停</div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="text-center">
+                        <button id="startGameBtn" class="game-button bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white font-bold py-3 sm:py-4 px-8 sm:px-12 rounded-xl text-base sm:text-lg shadow-lg">
+                            <svg class="w-5 sm:w-6 h-5 sm:h-6 mr-2 sm:mr-3 inline" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"/>
+                            </svg>
+                            开始记忆风暴挑战
+                        </button>
+
+                        <div class="mt-3 sm:mt-4 text-sm text-gray-400">
+                            选择右侧学习进度可专注特定年级内容
+                        </div>
+                    </div>
                 </div>
-                <button onclick="clearSemester()" class="w-full bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-lg transition">
-                    清除学期限制
-                </button>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-6 mb-8">
-                <div class="bg-gray-800 bg-opacity-50 backdrop-blur-lg rounded-2xl p-6 border border-gray-700">
-                    <h3 class="text-xl font-bold mb-3 text-yellow-400">⚡ 极限挑战</h3>
-                    <p class="text-gray-300 mb-4">60秒内答对尽可能多的题目，难度递增</p>
-                    <button onclick="startGame('speed')" class="w-full bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 text-white font-bold py-3 px-6 rounded-lg transform transition hover:scale-105">
-                        开始极限挑战
-                    </button>
-                </div>
-                
-                <div class="bg-gray-800 bg-opacity-50 backdrop-blur-lg rounded-2xl p-6 border border-gray-700">
-                    <h3 class="text-xl font-bold mb-3 text-blue-400">🎯 记忆风暴</h3>
-                    <p class="text-gray-300 mb-4">记住公式和概念，快速回答相关问题</p>
-                    <button onclick="startGame('memory')" class="w-full bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white font-bold py-3 px-6 rounded-lg transform transition hover:scale-105">
-                        开始记忆风暴
-                    </button>
-                </div>
-                
-                <div class="bg-gray-800 bg-opacity-50 backdrop-blur-lg rounded-2xl p-6 border border-gray-700">
-                    <h3 class="text-xl font-bold mb-3 text-green-400">🏆 知识竞速</h3>
-                    <p class="text-gray-300 mb-4">多个知识点竞速答题，考验综合能力</p>
-                    <button onclick="startGame('race')" class="w-full bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-bold py-3 px-6 rounded-lg transform transition hover:scale-105">
-                        开始知识竞速
-                    </button>
-                </div>
-                
-                <div class="bg-gray-800 bg-opacity-50 backdrop-blur-lg rounded-2xl p-6 border border-gray-700">
-                    <h3 class="text-xl font-bold mb-3 text-purple-400">📚 专题突破</h3>
-                    <p class="text-gray-300 mb-4">选择特定知识点进行深度练习</p>
-                    <button onclick="showKnowledgePoints()" class="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold py-3 px-6 rounded-lg transform transition hover:scale-105">
-                        选择知识点
-                    </button>
-                </div>
-            </div>
-            
-            <!-- 排行榜 -->
-            <div class="bg-gray-800 bg-opacity-50 backdrop-blur-lg rounded-2xl p-6 border border-gray-700">
-                <h3 class="text-xl font-bold mb-4 text-yellow-400">🏆 排行榜</h3>
-                <div id="highScores" class="space-y-2">
-                    <!-- 动态加载排行榜 -->
-                </div>
-            </div>
-        </div>
-        
-        <!-- 游戏界面 -->
-        <div id="gameScreen" class="hidden">
-            <!-- 游戏头部信息 -->
-            <div class="flex justify-between items-center mb-6">
-                <div class="flex items-center space-x-4">
-                    <div class="bg-gray-800 bg-opacity-70 backdrop-blur rounded-lg px-4 py-2">
-                        <span class="text-gray-400">得分</span>
-                        <span id="score" class="text-2xl font-bold text-yellow-400 ml-2">0</span>
+            <!-- 右侧：学习进度选择 -->
+            <div class="lg:sticky lg:top-8 lg:h-fit">
+                <div class="glass-card rounded-2xl p-4 sm:p-6">
+                    <h2 class="text-lg sm:text-xl font-bold mb-3 sm:mb-4 text-purple-400 flex items-center">
+                        <svg class="w-4 sm:w-5 h-4 sm:h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"/>
+                        </svg>
+                        学习进度
+                    </h2>
+                    <p class="text-gray-300 text-sm mb-4">选择学段和年级后游戏只包含该年级及之前的内容</p>
+
+                    <!-- 当前选择显示 -->
+                    <div id="currentGradeDisplay" class="hidden bg-green-600 bg-opacity-20 border border-green-500 rounded-lg p-3 mb-4">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 8.293a1 1 0 001.414 0l4-4a1 1 0 001.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                <span class="text-green-400 font-semibold text-sm">已选择：</span>
+                                <span id="currentGradeText" class="text-white text-sm ml-1"></span>
+                            </div>
+                            <button onclick="clearGrade()" class="text-red-400 hover:text-red-300 text-xs">
+                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293 4.293a1 1 0 001.414 0L10 11.414l-4.293 4.293a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                            </button>
+                        </div>
                     </div>
-                    <div class="bg-gray-800 bg-opacity-70 backdrop-blur rounded-lg px-4 py-2">
-                        <span class="text-gray-400">连击</span>
-                        <span id="combo" class="text-2xl font-bold text-orange-400 ml-2">0</span>
+
+                    <!-- 学段按钮容器 -->
+                    <div class="mb-4">
+                        <h3 class="text-sm font-semibold mb-2 text-gray-300">选择学段</h3>
+                        <div id="gradeContainer" class="space-y-2 mb-4">
+                            <!-- 动态生成学段按钮 -->
+                        </div>
                     </div>
-                    <div class="bg-gray-800 bg-opacity-70 backdrop-blur rounded-lg px-4 py-2">
-                        <span class="text-gray-400">难度</span>
-                        <span id="difficulty" class="text-xl font-bold text-red-400 ml-2">1</span>
+
+                    <!-- 学期选择区域 -->
+                    <div id="semesterSection" class="hidden">
+                        <h3 class="text-sm font-semibold mb-2 text-gray-300">选择年级</h3>
+
+                        <!-- 当前选择显示 -->
+                        <div id="currentSemesterDisplay" class="hidden bg-green-600 bg-opacity-20 border border-green-500 rounded-lg p-3 mb-4">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 8.293a1 1 0 001.414 0l4-4a1 1 0 001.414 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span class="text-green-400 font-semibold text-sm">已选择：</span>
+                                    <span id="currentSemesterText" class="text-white text-sm ml-1"></span>
+                                </div>
+                                <button onclick="clearSemester()" class="text-red-400 hover:text-red-300 text-xs">
+                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293 4.293a1 1 0 001.414 0L10 11.414l-4.293 4.293a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- 学期按钮容器 -->
+                        <div id="semesterContainer" class="space-y-3 mb-4">
+                            <!-- 动态生成学期按钮 -->
+                        </div>
+
+                        <!-- 无学期选择提示 -->
+                        <div id="noSemesterHint" class="text-center text-gray-400 text-xs mb-4 p-3 bg-gray-700 bg-opacity-30 rounded-lg">
+                            <svg class="w-4 h-4 inline mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 012 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+                            </svg>
+                            默认包含该学段所有内容
+                        </div>
                     </div>
-                </div>
-                
-                <div class="flex items-center space-x-4">
-                    <div id="timerContainer" class="bg-gray-800 bg-opacity-70 backdrop-blur rounded-lg px-4 py-2">
-                        <span class="text-gray-400">时间</span>
-                        <span id="timer" class="text-2xl font-bold text-cyan-400 ml-2">60</span>
-                    </div>
-                    <button onclick="pauseGame()" class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-lg transition">
-                        ⏸️ 暂停
+
+                    <!-- 清除选择按钮 -->
+                    <button id="clearAllBtn" class="game-button w-full bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded-lg text-sm flex items-center justify-center">
+                        <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 011-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 110-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd"/>
+                        </svg>
+                        重置为全部内容
                     </button>
-                </div>
-            </div>
-            
-            <!-- 进度条 -->
-            <div class="mb-6">
-                <div class="w-full bg-gray-700 rounded-full h-3 overflow-hidden">
-                    <div id="progressBar" class="bg-gradient-to-r from-green-400 to-blue-500 h-full rounded-full transition-all duration-300" style="width: 0%"></div>
-                </div>
-            </div>
-            
-            <!-- 题目显示区 -->
-            <div class="bg-gray-800 bg-opacity-50 backdrop-blur-lg rounded-2xl p-8 mb-6 border border-gray-700">
-                <div class="flex justify-between items-start mb-4">
-                    <span id="questionCategory" class="bg-blue-600 px-3 py-1 rounded-full text-sm font-semibold"></span>
-                    <span id="questionNumber" class="text-gray-400">第 1 题</span>
-                </div>
-                <div id="questionContent" class="text-2xl font-bold mb-6 leading-relaxed"></div>
-                
-                <!-- 选项区域 -->
-                <div id="optionsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <!-- 动态生成选项 -->
-                </div>
-            </div>
-            
-            <!-- 反馈区域 -->
-            <div id="feedback" class="hidden bg-gray-800 bg-opacity-50 backdrop-blur-lg rounded-2xl p-4 border border-gray-700">
-                <div id="feedbackContent" class="flex items-center justify-between">
-                    <div id="feedbackText" class="text-lg"></div>
-                    <div id="feedbackIcon" class="text-3xl"></div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- 知识点选择界面 -->
-        <div id="knowledgePointsScreen" class="hidden text-center">
-            <h2 class="text-4xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
-                选择知识点
-            </h2>
-            <div id="knowledgePointsGrid" class="grid md:grid-cols-3 lg:grid-cols-4 gap-4 mb-6">
-                <!-- 动态生成知识点按钮 -->
-            </div>
-            <button onclick="backToMenu()" class="bg-gray-700 hover:bg-gray-600 px-6 py-3 rounded-lg transition">
-                ← 返回主菜单
-            </button>
-        </div>
-        
-        <!-- 暂停界面 -->
-        <div id="pauseScreen" class="hidden fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
-            <div class="bg-gray-800 rounded-2xl p-8 text-center max-w-md">
-                <h3 class="text-3xl font-bold mb-6">游戏暂停</h3>
-                <div class="space-y-4">
-                    <button onclick="resumeGame()" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition">
-                        继续游戏
-                    </button>
-                    <button onclick="restartGame()" class="w-full bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-3 px-6 rounded-lg transition">
-                        重新开始
-                    </button>
-                    <button onclick="backToMenu()" class="w-full bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-6 rounded-lg transition">
-                        返回主菜单
-                    </button>
-                </div>
-            </div>
-        </div>
-        
-        <!-- 结果界面 -->
-        <div id="resultScreen" class="hidden text-center">
-            <h2 class="text-5xl font-black mb-6 text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-red-600">
-                挑战结束！
-            </h2>
-            
-            <div class="bg-gray-800 bg-opacity-50 backdrop-blur-lg rounded-2xl p-8 mb-6 border border-gray-700">
-                <div class="grid md:grid-cols-2 gap-6 mb-6">
-                    <div>
-                        <p class="text-gray-400 mb-2">最终得分</p>
-                        <p id="finalScore" class="text-4xl font-bold text-yellow-400">0</p>
+
+                    <!-- 无选择提示 -->
+                    <div id="noSelectionHint" class="text-center text-gray-400 text-xs mb-4 p-3 bg-gray-700 bg-opacity-30 rounded-lg">
+                        <svg class="w-4 h-4 inline mr-1" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 012 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+                        </svg>
+                        默认包含所有学段内容
                     </div>
-                    <div>
-                        <p class="text-gray-400 mb-2">正确率</p>
-                        <p id="accuracy" class="text-4xl font-bold text-green-400">0%</p>
+
+                    <!-- 题库统计信息 -->
+                    <div class="mt-4 sm:mt-6 pt-4 sm:pt-6 border-t border-gray-600 border-opacity-30">
+                        <div class="text-xs text-gray-400 space-y-2">
+                            <div class="flex justify-between">
+                                <span>总题目数：</span>
+                                <span class="text-white">15+</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>覆盖范围：</span>
+                                <span class="text-white">七年级至九年级</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>难度等级：</span>
+                                <span class="text-white">5级递增</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>防重复机制：</span>
+                                <span class="text-green-400">✓ 已启用</span>
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <p class="text-gray-400 mb-2">最高连击</p>
-                        <p id="maxCombo" class="text-4xl font-bold text-orange-400">0</p>
-                    </div>
-                    <div>
-                        <p class="text-gray-400 mb-2">答题数量</p>
-                        <p id="totalQuestions" class="text-4xl font-bold text-blue-400">0</p>
-                    </div>
-                </div>
-                
-                <div id="newRecord" class="hidden bg-gradient-to-r from-yellow-500 to-orange-500 rounded-lg p-4 mb-6">
-                    <p class="text-2xl font-bold">🎉 新纪录！</p>
-                </div>
-                
-                <div class="space-y-4">
-                    <button onclick="playAgain()" class="w-full bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-bold py-3 px-6 rounded-lg transition">
-                        再玩一次
-                    </button>
-                    <button onclick="backToMenu()" class="w-full bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-lg transition">
-                        返回主菜单
-                    </button>
                 </div>
             </div>
         </div>
     </div>
-    
-    <script src="js/game-engine.js"></script>
-    <script src="js/questions.js"></script>
-    <script src="js/storage.js"></script>
-    <script src="js/effects.js"></script>
-    <script src="js/main.js"></script>
+
+    <!-- 游戏界面 -->
+    <div id="gameScreen" class="hidden fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center p-4">
+        <div class="glass-card rounded-2xl p-4 sm:p-6 lg:p-8 max-w-4xl w-full max-h-full overflow-y-auto">
+            <!-- 游戏头部 -->
+            <div class="flex justify-between items-center mb-4 sm:mb-6">
+                <div class="flex space-x-2 sm:space-x-4">
+                    <div class="bg-gray-700 bg-opacity-50 px-3 py-2 rounded-lg">
+                        <span class="text-gray-400 text-sm">得分</span>
+                        <span id="score" class="text-xl sm:text-2xl font-bold text-yellow-400 ml-1 sm:ml-2">0</span>
+                    </div>
+                    <div class="bg-gray-700 bg-opacity-50 px-3 py-2 rounded-lg">
+                        <span class="text-gray-400 text-sm">连击</span>
+                        <span id="combo" class="text-xl sm:text-2xl font-bold text-orange-400 ml-1 sm:ml-2">0</span>
+                    </div>
+                    <div class="bg-gray-700 bg-opacity-50 px-3 py-2 rounded-lg">
+                        <span class="text-gray-400 text-sm">时间</span>
+                        <span id="timer" class="text-xl sm:text-2xl font-bold text-cyan-400 ml-1 sm:ml-2">90</span>
+                    </div>
+                </div>
+                <button id="pauseBtn" class="bg-gray-600 hover:bg-gray-700 px-3 py-2 rounded-lg flex items-center">
+                    <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                    </svg>
+                    暂停
+                </button>
+            </div>
+
+            <!-- 题目区域 -->
+            <div id="questionArea" class="mb-4 sm:mb-6">
+                <div class="bg-gray-700 bg-opacity-50 rounded-lg p-4 sm:p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <span id="questionCategory" class="bg-blue-600 px-3 py-1 rounded-full text-sm font-semibold"></span>
+                        <span id="questionNumber" class="text-gray-400 text-sm">第 1 题</span>
+                    </div>
+                    <div id="questionContent" class="text-lg sm:text-xl font-bold mb-4 sm:mb-6"></div>
+                    <div id="optionsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <!-- 动态生成选项 -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- 返回按钮 -->
+            <div class="text-center">
+                <button id="backToMenuBtn" class="game-button bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-6 rounded-lg">
+                    <svg class="w-5 h-5 mr-2 inline" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd"/>
+                    </svg>
+                    返回主菜单
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // 简化的游戏状态
+        let gameState = {
+            selectedGrade: null,
+            selectedSemester: null,
+            score: 0,
+            combo: 0,
+            questionCount: 0,
+            timeLeft: 90,
+            isPlaying: false,
+            isPaused: false,
+            timer: null,
+            usedQuestionIndices: []  // 记录已使用的题目索引，防止重复
+        };
+
+        // 学段数据
+        const grades = [
+            {
+                key: 'elementary',
+                display: '小学',
+                description: '1-6年级基础内容',
+                semesters: [
+                    { key: '小学低年级', display: '小学低年级（1-3年级）' },
+                    { key: '小学高年级', display: '小学高年级（4-6年级）' }
+                ]
+            },
+            {
+                key: 'middle',
+                display: '初中',
+                description: '7-9年级内容',
+                semesters: [
+                    { key: '七年级上', display: '七年级上学期' },
+                    { key: '七年级下', display: '七年级下学期' },
+                    { key: '八年级上', display: '八年级上学期' },
+                    { key: '八年级下', display: '八年级下学期' },
+                    { key: '九年级上', display: '九年级上学期' },
+                    { key: '九年级下', display: '九年级下学期' }
+                ]
+            },
+            {
+                key: 'high',
+                display: '高中',
+                description: '10-12年级内容',
+                semesters: [
+                    { key: '高中必修一', display: '高中必修一' },
+                    { key: '高中必修二', display: '高中必修二' },
+                    { key: '高中必修三', display: '高中必修三' },
+                    { key: '高中选修', display: '高中选修系列' }
+                ]
+            }
+        ];
+
+        // 完整的教材题目数据库 - 包含所有定义定理和概念
+        const sampleQuestions = [
+            // ===== 七年级上学期 =====
+            {
+                id: 1,
+                question: "有理数的基本运算规则是什么？",
+                options: [
+                    "同号相加，取相同符号，绝对值相加",
+                    "异号相加，取绝对值较大的符号，绝对值相减",
+                    "同号相乘，取正号；异号相乘，取负号",
+                    "以上都是正确的"
+                ],
+                correct: 3,
+                category: "有理数",
+                semester: "七年级上"
+            },
+            {
+                id: 2,
+                question: "相反数的定义是？",
+                options: [
+                    "只有符号不同的两个数",
+                    "绝对值相等的两个数",
+                    "和为零的两个数",
+                    "乘积为-1的两个数"
+                ],
+                correct: 1,
+                category: "有理数",
+                semester: "七年级上"
+            },
+            {
+                id: 3,
+                question: "绝对值的几何意义是什么？",
+                options: [
+                    "数轴上表示数的点到原点的距离",
+                    "数轴上表示数的位置",
+                    "数的大小比较",
+                    "数的正负判断"
+                ],
+                correct: 0,
+                category: "有理数",
+                semester: "七年级上"
+            },
+            {
+                id: 4,
+                question: "科学记数法中，32000应该写成？",
+                options: [
+                    "3.2 × 10³",
+                    "3.2 × 10⁴",
+                    "3.2 × 10⁵",
+                    "32 × 10³"
+                ],
+                correct: 1,
+                category: "有理数",
+                semester: "七年级上"
+            },
+            {
+                id: 5,
+                question: "整式的定义是？",
+                options: [
+                    "由数和字母的乘积组成的代数式",
+                    "不含除法的代数式",
+                    "含有字母的式子",
+                    "不包含分数的代数式"
+                ],
+                correct: 0,
+                category: "整式",
+                semester: "七年级上"
+            },
+            {
+                id: 6,
+                question: "单项式的系数是什么？",
+                options: [
+                    "单项式中的数字因数",
+                    "单项式中的字母部分",
+                    "单项式中的所有数字",
+                    "单项式的次数"
+                ],
+                correct: 0,
+                category: "整式",
+                semester: "七年级上"
+            },
+            {
+                id: 7,
+                question: "单项式的次数是指？",
+                options: [
+                    "单项式中所有字母的指数之和",
+                    "单项式中数字的大小",
+                    "单项式中字母的个数",
+                    "单项式的系数大小"
+                ],
+                correct: 0,
+                category: "整式",
+                semester: "七年级上"
+            },
+            {
+                id: 8,
+                question: "同类项的定义是？",
+                options: [
+                    "系数相同，字母相同，相同字母的指数也相同的项",
+                    "字母完全相同的项",
+                    "系数相同的项",
+                    "次数相同的项"
+                ],
+                correct: 0,
+                category: "整式",
+                semester: "七年级上"
+            },
+            {
+                id: 9,
+                question: "合并同类项：3x² + 2x - x² + 4x = ?",
+                options: [
+                    "2x² + 6x",
+                    "2x² + 6x",
+                    "4x² + 2x",
+                    "4x² + 6x"
+                ],
+                correct: 0,
+                category: "整式",
+                semester: "七年级上"
+            },
+            {
+                id: 10,
+                question: "去括号：2(a + 3b) = ?",
+                options: [
+                    "2a + 3b",
+                    "2a + 6b",
+                    "a + 3b",
+                    "2a + 3b + 2"
+                ],
+                correct: 1,
+                category: "整式",
+                semester: "七年级上"
+            },
+            {
+                id: 11,
+                question: "完全平方公式：(a + b)² = ?",
+                options: [
+                    "a² + b²",
+                    "a² + 2ab + b²",
+                    "a² - 2ab + b²",
+                    "a² + ab + b²"
+                ],
+                correct: 1,
+                category: "整式",
+                semester: "七年级上"
+            },
+            {
+                id: 12,
+                question: "平方差公式：(a - b)(a + b) = ?",
+                options: [
+                    "a² - b²",
+                    "a² + b²",
+                    "a² - 2ab + b²",
+                    "a² + 2ab + b²"
+                ],
+                correct: 0,
+                category: "整式",
+                semester: "七年级上"
+            },
+            {
+                id: 13,
+                question: "一元一次方程的标准形式是？",
+                options: [
+                    "ax + b = 0 (a ≠ 0)",
+                    "ax² + bx + c = 0 (a ≠ 0)",
+                    "y = kx + b",
+                    "x = k"
+                ],
+                correct: 0,
+                category: "方程",
+                semester: "七年级上"
+            },
+            {
+                id: 14,
+                question: "解一元一次方程：2x - 3 = 7",
+                options: [
+                    "x = 2",
+                    "x = 5",
+                    "x = 3",
+                    "x = 6"
+                ],
+                correct: 1,
+                category: "方程",
+                semester: "七年级上"
+            },
+            {
+                id: 15,
+                question: "二元一次方程组的解法不包括？",
+                options: [
+                    "代入消元法",
+                    "加减消元法",
+                    "公式法",
+                    "因式分解法"
+                ],
+                correct: 3,
+                category: "方程",
+                semester: "七年级上"
+            },
+            {
+                id: 16,
+                question: "几何图形的基本要素不包括？",
+                options: [
+                    "点",
+                    "线",
+                    "面",
+                    "体"
+                ],
+                correct: 3,
+                category: "几何",
+                semester: "七年级上"
+            },
+            {
+                id: 17,
+                question: "角的平分线的定义是？",
+                options: [
+                    "把一个角分成两个相等的角的射线",
+                    "把角分成两部分的线",
+                    "垂直于角边的线",
+                    "角的对称轴"
+                ],
+                correct: 0,
+                category: "几何",
+                semester: "七年级上"
+            },
+            {
+                id: 18,
+                question: "平行线的性质中，同位角有什么特点？",
+                options: [
+                    "相等",
+                    "互补",
+                    "互余",
+                    "不确定"
+                ],
+                correct: 0,
+                category: "几何",
+                semester: "七年级上"
+            },
+            {
+                id: 19,
+                question: "直线、射线、线段的主要区别是？",
+                options: [
+                    "是否有端点",
+                    "长度是否有限",
+                    "是否可以延长",
+                    "方向性"
+                ],
+                correct: 2,
+                category: "几何",
+                semester: "七年级上"
+            },
+            {
+                id: 20,
+                question: "点到直线的距离是指？",
+                options: [
+                    "点到直线最短距离的长度",
+                    "连接点与直线的线段长度",
+                    "点到直线的垂直距离",
+                    "点到直线的水平距离"
+                ],
+                correct: 2,
+                category: "几何",
+                semester: "七年级上"
+            },
+            // ===== 七年级下学期 =====
+            {
+                id: 21,
+                question: "不等式的基本性质中，若 a > b，则 a + c > b + c",
+                options: [
+                    "总是成立",
+                    "当 c > 0 时成立",
+                    "当 c < 0 时成立",
+                    "不一定成立"
+                ],
+                correct: 0,
+                category: "不等式",
+                semester: "七年级下"
+            },
+            {
+                id: 22,
+                question: "一元一次不等式解集的表示方法不包括？",
+                options: [
+                    "数轴表示",
+                    "区间表示",
+                    "集合表示",
+                    "列表表示"
+                ],
+                correct: 3,
+                category: "不等式",
+                semester: "七年级下"
+            },
+            {
+                id: 23,
+                question: "平面直角坐标系中，点 P(3,4) 到原点的距离是？",
+                options: [
+                    "3",
+                    "4",
+                    "5",
+                    "7"
+                ],
+                correct: 2,
+                category: "坐标",
+                semester: "七年级下"
+            },
+            {
+                id: 24,
+                question: "函数的定义三要素是？",
+                options: [
+                    "定义域、值域、对应法则",
+                    "自变量、因变量、常数",
+                    "输入、输出、规则",
+                    "定义、公式、图像"
+                ],
+                correct: 0,
+                category: "函数",
+                semester: "七年级下"
+            },
+            {
+                id: 25,
+                question: "正比例函数 y = kx (k ≠ 0) 的图像是？",
+                options: [
+                    "经过原点的直线",
+                    "不经过原点的直线",
+                    "抛物线",
+                    "双曲线"
+                ],
+                correct: 0,
+                category: "函数",
+                semester: "七年级下"
+            },
+            {
+                id: 26,
+                question: "数据的平均数的计算公式是？",
+                options: [
+                    "(x₁ + x₂ + ... + xₙ)/n",
+                    "∑x/n",
+                    "x₁ + x₂ + ... + xₙ",
+                    "max(x) + min(x)"
+                ],
+                correct: 0,
+                category: "统计",
+                semester: "七年级下"
+            },
+            {
+                id: 27,
+                question: "中位数的定义是？",
+                options: [
+                    "将数据从小到大排列后最中间的数",
+                    "数据中出现次数最多的数",
+                    "数据的平均值",
+                    "数据中最大的数"
+                ],
+                correct: 0,
+                category: "统计",
+                semester: "七年级下"
+            },
+            {
+                id: 28,
+                question: "方差的计算步骤是？",
+                options: [
+                    "先算平均数，再算差的平方和，最后除以个数",
+                    "直接计算数据的平方和",
+                    "找最大值和最小值的差",
+                    "计算数据的标准差"
+                ],
+                correct: 0,
+                category: "统计",
+                semester: "七年级下"
+            },
+            // ===== 八年级上学期 =====
+            {
+                id: 29,
+                question: "因式分解的定义是？",
+                options: [
+                    "把一个多项式化为几个整式的乘积的形式",
+                    "把多项式按降幂排列",
+                    "求多项式的根",
+                    "化简多项式"
+                ],
+                correct: 0,
+                category: "因式分解",
+                semester: "八年级上"
+            },
+            {
+                id: 30,
+                question: "提公因式法的第一步是？",
+                options: [
+                    "确定各项系数的最大公约数",
+                    "确定各项都有的字母",
+                    "按字母的指数排列",
+                    "先计算多项式的值"
+                ],
+                correct: 1,
+                category: "因式分解",
+                semester: "八年级上"
+            },
+            {
+                id: 31,
+                question: "完全平方式 x² + 6x + 9 的因式分解结果是？",
+                options: [
+                    "(x + 3)²",
+                    "(x - 3)²",
+                    "(x + 9)(x + 1)",
+                    "(x + 3)(x + 3)"
+                ],
+                correct: 0,
+                category: "因式分解",
+                semester: "八年级上"
+            },
+            {
+                id: 32,
+                question: "平方差公式 x² - 16 的因式分解结果是？",
+                options: [
+                    "(x + 4)(x - 4)",
+                    "(x + 8)(x - 2)",
+                    "(x - 4)²",
+                    "x(x - 16)"
+                ],
+                correct: 0,
+                category: "因式分解",
+                semester: "八年级上"
+            },
+            {
+                id: 33,
+                question: "分式的基本性质中，(a/b) × (c/d) = ?",
+                options: [
+                    "ac/bd",
+                    "(a×c)/(b×d)",
+                    "(a+c)/(b+d)",
+                    "(a-c)/(b-d)"
+                ],
+                correct: 1,
+                category: "分式",
+                semester: "八年级上"
+            },
+            {
+                id: 34,
+                question: "分式的约分是指？",
+                options: [
+                    "分子分母同时除以它们的公因式",
+                    "分子分母同时加上相同的数",
+                    "把分式化为最简形式",
+                    "把分式的分子分母交换"
+                ],
+                correct: 0,
+                category: "分式",
+                semester: "八年级上"
+            },
+            {
+                id: 35,
+                question: "分式的通分是指？",
+                options: [
+                    "把几个分式化成同分母的分式",
+                    "把分式的分母化简",
+                    "把分式化为整式",
+                    "求分式的值"
+                ],
+                correct: 0,
+                category: "分式",
+                semester: "八年级上"
+            },
+            {
+                id: 36,
+                question: "全等三角形的判定方法不包括？",
+                options: [
+                    "SSS",
+                    "SAS",
+                    "ASA",
+                    "AAA"
+                ],
+                correct: 3,
+                category: "三角形",
+                semester: "八年级上"
+            },
+            {
+                id: 37,
+                question: "勾股定理的内容是？",
+                options: [
+                    "a² + b² = c² (直角三角形)",
+                    "a² + b² > c² (锐角三角形)",
+                    "a² + b² < c² (钝角三角形)",
+                    "a + b > c (任意三角形)"
+                ],
+                correct: 0,
+                category: "三角形",
+                semester: "八年级上"
+            },
+            {
+                id: 38,
+                question: "等腰三角形的性质是？",
+                options: [
+                    "两个底角相等",
+                    "三条边都相等",
+                    "三个角都相等",
+                    "高线垂直于底边"
+                ],
+                correct: 0,
+                category: "三角形",
+                semester: "八年级上"
+            },
+            {
+                id: 39,
+                question: "平行四边形的判定条件是？",
+                options: [
+                    "两组对边分别平行",
+                    "一组对边平行且相等",
+                    "对角线互相平分",
+                    "两组对角分别相等"
+                ],
+                correct: 0,
+                category: "四边形",
+                semester: "八年级上"
+            },
+            {
+                id: 40,
+                question: "矩形的性质是？",
+                options: [
+                    "四个角都是直角，对角线相等",
+                    "四条边都相等",
+                    "对角线互相垂直",
+                    "既是矩形又是菱形"
+                ],
+                correct: 0,
+                category: "四边形",
+                semester: "八年级上"
+            },
+            {
+                id: 41,
+                question: "菱形的性质是？",
+                options: [
+                    "四条边都相等，对角线互相垂直",
+                    "四个角都是直角",
+                    "对角线相等",
+                    "既是矩形又是菱形"
+                ],
+                correct: 0,
+                category: "四边形",
+                semester: "八年级上"
+            },
+            {
+                id: 42,
+                question: "一次函数 y = kx + b 中，k 叫做？",
+                options: [
+                    "斜率",
+                    "截距",
+                    "变量",
+                    "常数"
+                ],
+                correct: 0,
+                category: "一次函数",
+                semester: "八年级上"
+            },
+            {
+                id: 43,
+                question: "一次函数的截距是指？",
+                options: [
+                    "图像与y轴交点的纵坐标",
+                    "图像与x轴交点的横坐标",
+                    "函数经过的点",
+                    "函数的变化率"
+                ],
+                correct: 0,
+                category: "一次函数",
+                semester: "八年级上"
+            },
+            {
+                id: 44,
+                question: "正比例函数与一次函数的关系是？",
+                options: [
+                    "正比例函数是一次函数的特殊情况",
+                    "一次函数是正比例函数的特殊情况",
+                    "两者没有关系",
+                    "两者图像相同"
+                ],
+                correct: 0,
+                category: "一次函数",
+                semester: "八年级上"
+            },
+            // ===== 八年级下学期 =====
+            {
+                id: 45,
+                question: "二次函数的一般形式是？",
+                options: [
+                    "y = ax² + bx + c (a ≠ 0)",
+                    "y = a(x + h)² + k",
+                    "y = a(x - x₁)(x - x₂)",
+                    "ax² + bx + c = 0"
+                ],
+                correct: 0,
+                category: "二次函数",
+                semester: "八年级下"
+            },
+            {
+                id: 46,
+                question: "二次函数图像的顶点坐标公式是？",
+                options: [
+                    "(-b/2a, (4ac-b²)/4a)",
+                    "(b/2a, (4ac+b²)/4a)",
+                    "(-b/a, c/a)",
+                    "(b/a, -c/a)"
+                ],
+                correct: 0,
+                category: "二次函数",
+                semester: "八年级下"
+            },
+            {
+                id: 47,
+                question: "二次函数的开口方向由什么决定？",
+                options: [
+                    "二次项系数a的符号",
+                    "一次项系数b的大小",
+                    "常数项c的值",
+                    "判别式Δ的值"
+                ],
+                correct: 0,
+                category: "二次函数",
+                semester: "八年级下"
+            },
+            {
+                id: 48,
+                question: "一元二次方程的判别式 Δ = b² - 4ac，当 Δ > 0 时，方程有？",
+                options: [
+                    "两个不相等的实根",
+                    "两个相等的实根",
+                    "没有实根",
+                    "两个虚根"
+                ],
+                correct: 0,
+                category: "二次方程",
+                semester: "八年级下"
+            },
+            {
+                id: 49,
+                question: "解一元二次方程：x² - 5x + 6 = 0",
+                options: [
+                    "x = 2, x = 3",
+                    "x = -2, x = -3",
+                    "x = 1, x = 6",
+                    "x = 0"
+                ],
+                correct: 0,
+                category: "二次方程",
+                semester: "八年级下"
+            },
+            {
+                id: 50,
+                question: "因式分解法解一元二次方程的步骤是？",
+                options: [
+                    "因式分解，令每个因式为零，求解",
+                    "用求根公式直接计算",
+                    "配方法变形",
+                    "两边同时除以二次项系数"
+                ],
+                correct: 0,
+                category: "二次方程",
+                semester: "八年级下"
+            },
+            {
+                id: 51,
+                question: "圆的定义是？",
+                options: [
+                    "平面上到定点距离等于定长的点的集合",
+                    "一个封闭的曲线",
+                    "所有到中心距离相等的点",
+                    "一个完美的几何图形"
+                ],
+                correct: 0,
+                category: "圆",
+                semester: "八年级下"
+            },
+            {
+                id: 52,
+                question: "圆的标准方程 (x-a)² + (y-b)² = r² 中，(a,b) 表示？",
+                options: [
+                    "圆心坐标",
+                    "圆的半径",
+                    "圆上的任意点",
+                    "圆的直径"
+                ],
+                correct: 0,
+                category: "圆",
+                semester: "八年级下"
+            },
+            {
+                id: 53,
+                question: "点与圆的位置关系中，点到圆心距离 d 与半径 r 的关系是？",
+                options: [
+                    "d > r 时点在圆外，d = r 时点在圆上，d < r 时点在圆内",
+                    "d > r 时点在圆内，d < r 时点在圆外",
+                    "d = r 时点在圆外",
+                    "d < r 时点在圆上"
+                ],
+                correct: 0,
+                category: "圆",
+                semester: "八年级下"
+            },
+            {
+                id: 54,
+                question: "圆周角的性质是？",
+                options: [
+                    "圆周角的度数等于它所对弧度数的一半",
+                    "圆周角等于圆心角的一半",
+                    "圆周角都是直角",
+                    "圆周角的度数固定"
+                ],
+                correct: 0,
+                category: "圆",
+                semester: "八年级下"
+            },
+            {
+                id: 55,
+                question: "弧长的计算公式是？",
+                options: [
+                    "L = nπr/360° (n°为圆心角)",
+                    "L = 2πr",
+                    "L = πr",
+                    "L = r²"
+                ],
+                correct: 0,
+                category: "圆",
+                semester: "八年级下"
+            },
+            // ===== 九年级上学期 =====
+            {
+                id: 56,
+                question: "旋转的性质中，旋转不改变图形的？",
+                options: [
+                    "形状和大小",
+                    "位置",
+                    "方向",
+                    "颜色"
+                ],
+                correct: 0,
+                category: "旋转变换",
+                semester: "九年级上"
+            },
+            {
+                id: 57,
+                question: "中心对称的定义是？",
+                options: [
+                    "绕某点旋转180°后与原图形重合",
+                    "关于某条直线对称",
+                    "关于某个点对称",
+                    "图形的一半与另一半相同"
+                ],
+                correct: 0,
+                category: "旋转变换",
+                semester: "九年级上"
+            },
+            {
+                id: 58,
+                question: "相似三角形的判定条件不包括？",
+                options: [
+                    "两组对应角相等",
+                    "三组对应边成比例",
+                    "两边对应成比例且夹角相等",
+                    "两组对应边成比例"
+                ],
+                correct: 3,
+                category: "相似形",
+                semester: "九年级上"
+            },
+            {
+                id: 59,
+                question: "相似三角形的性质是？",
+                options: [
+                    "对应角相等，对应边成比例",
+                    "对应边相等，对应角相等",
+                    "面积相等，周长成比例",
+                    "形状相同，大小不同"
+                ],
+                correct: 0,
+                category: "相似形",
+                semester: "九年级上"
+            },
+            {
+                id: 60,
+                question: "相似三角形的相似比是指？",
+                options: [
+                    "对应边之比",
+                    "对应角之比",
+                    "面积之比",
+                    "周长之比"
+                ],
+                correct: 0,
+                category: "相似形",
+                semester: "九年级上"
+            },
+            {
+                id: 61,
+                question: "锐角三角函数中，sinα 的定义是？",
+                options: [
+                    "对边/斜边",
+                    "邻边/斜边",
+                    "对边/邻边",
+                    "斜边/对边"
+                ],
+                correct: 0,
+                category: "锐角三角函数",
+                semester: "九年级上"
+            },
+            {
+                id: 62,
+                question: "特殊角30°的正弦值是？",
+                options: [
+                    "1/2",
+                    "√2/2",
+                    "√3/2",
+                    "√3/3"
+                ],
+                correct: 0,
+                category: "锐角三角函数",
+                semester: "九年级上"
+            },
+            {
+                id: 63,
+                question: "特殊角45°的正切值是？",
+                options: [
+                    "1",
+                    "√2",
+                    "√3",
+                    "1/√2"
+                ],
+                correct: 0,
+                category: "锐角三角函数",
+                semester: "九年级上"
+            },
+            {
+                id: 64,
+                question: "在直角三角形中，若已知斜边和邻边，求角应该用？",
+                options: [
+                    "正弦函数",
+                    "余弦函数",
+                    "正切函数",
+                    "余切函数"
+                ],
+                correct: 1,
+                category: "锐角三角函数",
+                semester: "九年级上"
+            },
+            {
+                id: 65,
+                question: "概率的基本性质是？",
+                options: [
+                    "0 ≤ P(A) ≤ 1",
+                    "P(必然事件) = 1",
+                    "P(不可能事件) = 0",
+                    "以上都是"
+                ],
+                correct: 3,
+                category: "概率初步",
+                semester: "九年级上"
+            },
+            {
+                id: 66,
+                question: "古典概型的计算公式是？",
+                options: [
+                    "P(A) = 事件A包含的基本事件数/总的基本事件数",
+                    "P(A) = 有利事件数/总事件数",
+                    "P(A) = 频率/总数",
+                    "P(A) = 样本数/总体数"
+                ],
+                correct: 0,
+                category: "概率初步",
+                semester: "九年级上"
+            },
+            // ===== 九年级下学期 =====
+            {
+                id: 67,
+                question: "二次函数与一元二次方程的关系是？",
+                options: [
+                    "二次函数图像与x轴的交点就是对应方程的根",
+                    "二次函数的顶点就是方程的解",
+                    "二次函数的对称轴就是方程的解",
+                    "两者没有直接关系"
+                ],
+                correct: 0,
+                category: "二次函数与方程",
+                semester: "九年级下"
+            },
+            {
+                id: 68,
+                question: "统计图中，条形图的特点是？",
+                options: [
+                    "用矩形的高表示数据的大小",
+                    "用线的升降表示数据变化",
+                    "用扇形面积表示部分与整体的关系",
+                    "用点表示数据的分布"
+                ],
+                correct: 0,
+                category: "统计与概率",
+                semester: "九年级下"
+            },
+            {
+                id: 69,
+                question: "样本的抽取方法中，最基本的是？",
+                options: [
+                    "简单随机抽样",
+                    "系统抽样",
+                    "分层抽样",
+                    "整群抽样"
+                ],
+                correct: 0,
+                category: "统计与概率",
+                semester: "九年级下"
+            },
+            {
+                id: 70,
+                question: "用样本估计总体时，样本容量越大，估计结果？",
+                options: [
+                    "越精确",
+                    "越不精确",
+                    "不变",
+                    "无法确定"
+                ],
+                correct: 0,
+                category: "统计与概率",
+                semester: "九年级下"
+            },
+            {
+                id: 71,
+                question: "几何证明中，综合法是指？",
+                options: [
+                    "从已知条件出发，逐步推理得出结论",
+                    "从结论出发，逆向推理寻找条件",
+                    "假设结论不成立，推出矛盾",
+                    "构造辅助图形帮助证明"
+                ],
+                correct: 0,
+                category: "几何证明方法",
+                semester: "九年级下"
+            },
+            {
+                id: 72,
+                question: "反证法的步骤是？",
+                options: [
+                    "假设结论不成立，推出与已知条件的矛盾",
+                    "直接从条件推出结论",
+                    "举反例推翻结论",
+                    "用特殊例子验证结论"
+                ],
+                correct: 0,
+                category: "几何证明方法",
+                semester: "九年级下"
+            },
+            {
+                id: 73,
+                question: "解析几何中，两点 A(x₁,y₁)，B(x₂,y₂) 间的距离公式是？",
+                options: [
+                    "√[(x₂-x₁)² + (y₂-y₁)²]",
+                    "(x₂-x₁) + (y₂-y₁)",
+                    "(x₂-x₁)² + (y₂-y₁)²",
+                    "|x₂-x₁| + |y₂-y₁|"
+                ],
+                correct: 0,
+                category: "解析几何",
+                semester: "九年级下"
+            },
+            {
+                id: 74,
+                question: "直线的斜率公式是？",
+                options: [
+                    "k = (y₂-y₁)/(x₂-x₁)",
+                    "k = (x₂-x₁)/(y₂-y₁)",
+                    "k = y/x",
+                    "k = Δx/Δy"
+                ],
+                correct: 0,
+                category: "解析几何",
+                semester: "九年级下"
+            },
+            {
+                id: 75,
+                question: "圆的标准方程 (x+3)² + (y-4)² = 25 的圆心和半径是？",
+                options: [
+                    "圆心(-3,4)，半径5",
+                    "圆心(3,-4)，半径5",
+                    "圆心(-3,4)，半径25",
+                    "圆心(3,4)，半径5"
+                ],
+                correct: 0,
+                category: "解析几何",
+                semester: "九年级下"
+            }
+        ];
+            {
+                id: 1,
+                question: "有理数的基本运算规则是什么？",
+                options: [
+                    "同号相加，取相同符号，绝对值相加",
+                    "异号相加，取绝对值较大的符号，绝对值相减",
+                    "同号相乘，取正号；异号相乘，取负号",
+                    "以上都是正确的"
+                ],
+                correct: 3,
+                category: "有理数",
+                semester: "七年级上"
+            },
+            {
+                id: 2,
+                question: "完全平方公式：(a + b)² = ?",
+                options: [
+                    "a² + b²",
+                    "a² + 2ab + b²",
+                    "a² - 2ab + b²",
+                    "a² + ab + b²"
+                ],
+                correct: 1,
+                category: "整式",
+                semester: "七年级上"
+            },
+            {
+                id: 3,
+                question: "平方差公式：(a - b)(a + b) = ?",
+                options: [
+                    "a² - b²",
+                    "a² + b²",
+                    "a² - 2ab + b²",
+                    "a² + 2ab + b²"
+                ],
+                correct: 0,
+                category: "整式",
+                semester: "七年级上"
+            },
+            {
+                id: 4,
+                question: "同类项的定义是？",
+                options: [
+                    "系数相同，字母相同，相同字母的指数也相同的项",
+                    "字母完全相同的项",
+                    "系数相同的项",
+                    "次数相同的项"
+                ],
+                correct: 0,
+                category: "整式",
+                semester: "七年级上"
+            },
+            {
+                id: 5,
+                question: "一元一次方程的标准形式是？",
+                options: [
+                    "ax + b = 0 (a ≠ 0)",
+                    "ax² + bx + c = 0 (a ≠ 0)",
+                    "y = kx + b",
+                    "x = k"
+                ],
+                correct: 0,
+                category: "方程",
+                semester: "七年级上"
+            },
+            {
+                id: 6,
+                question: "角平分线的定义是？",
+                options: [
+                    "把一个角分成两个相等的角的射线",
+                    "把角分成两部分的线",
+                    "垂直于角边的线",
+                    "角的对称轴"
+                ],
+                correct: 0,
+                category: "几何",
+                semester: "七年级上"
+            },
+            {
+                id: 7,
+                question: "平行线的性质中，同位角有什么特点？",
+                options: [
+                    "相等",
+                    "互补",
+                    "互余",
+                    "不确定"
+                ],
+                correct: 0,
+                category: "几何",
+                semester: "七年级上"
+            },
+            {
+                id: 8,
+                question: "科学记数法中，32000应该写成？",
+                options: [
+                    "3.2 × 10³",
+                    "3.2 × 10⁴",
+                    "3.2 × 10⁵",
+                    "32 × 10³"
+                ],
+                correct: 1,
+                category: "有理数",
+                semester: "七年级上"
+            },
+            {
+                id: 9,
+                question: "代数式的值是指？",
+                options: [
+                    "用数值替代代数式中的字母，计算后得到的结果",
+                    "代数式的化简结果",
+                    "代数式的因式分解结果",
+                    "代数式的标准形式"
+                ],
+                correct: 0,
+                category: "整式",
+                semester: "七年级上"
+            },
+            {
+                id: 10,
+                question: "相反数的定义是？",
+                options: [
+                    "只有符号不同的两个数",
+                    "绝对值相等的两个数",
+                    "和为零的两个数",
+                    "乘积为-1的两个数"
+                ],
+                correct: 1,
+                category: "有理数",
+                semester: "七年级上"
+            },
+            {
+                id: 11,
+                question: "绝对值的几何意义是什么？",
+                options: [
+                    "数轴上表示数到原点的距离",
+                    "数轴上表示数的位置",
+                    "数的大小比较",
+                    "数的正负判断"
+                ],
+                correct: 0,
+                category: "有理数",
+                semester: "七年级上"
+            },
+            {
+                id: 12,
+                question: "单项式的系数是什么？",
+                options: [
+                    "单项式中的数字因数",
+                    "单项式中的字母部分",
+                    "单项式中的所有数字",
+                    "单项式的次数"
+                ],
+                correct: 0,
+                category: "整式",
+                semester: "七年级上"
+            },
+            {
+                id: 13,
+                question: "单项式的次数是指？",
+                options: [
+                    "单项式中所有字母的指数之和",
+                    "单项式中数字的大小",
+                    "单项式中字母的个数",
+                    "单项式的系数大小"
+                ],
+                correct: 0,
+                category: "整式",
+                semester: "七年级上"
+            },
+            {
+                id: 14,
+                question: "合并同类项：3x² + 2x - x² + 4x = ?",
+                options: [
+                    "2x² + 6x",
+                    "2x² + 6x",
+                    "4x² + 2x",
+                    "4x² + 6x"
+                ],
+                correct: 0,
+                category: "整式",
+                semester: "七年级上"
+            },
+            {
+                id: 15,
+                question: "去括号：2(a + 3b) = ?",
+                options: [
+                    "2a + 3b",
+                    "2a + 6b",
+                    "a + 3b",
+                    "2a + 3b + 2"
+                ],
+                correct: 1,
+                category: "整式",
+                semester: "七年级上"
+            }
+        ];
+
+        // DOM 元素
+        const elements = {
+            gradeContainer: document.getElementById('gradeContainer'),
+            semesterContainer: document.getElementById('semesterContainer'),
+            semesterSection: document.getElementById('semesterSection'),
+            currentGradeDisplay: document.getElementById('currentGradeDisplay'),
+            currentGradeText: document.getElementById('currentGradeText'),
+            currentSemesterDisplay: document.getElementById('currentSemesterDisplay'),
+            currentSemesterText: document.getElementById('currentSemesterText'),
+            clearAllBtn: document.getElementById('clearAllBtn'),
+            noSelectionHint: document.getElementById('noSelectionHint'),
+            noSemesterHint: document.getElementById('noSemesterHint'),
+            startGameBtn: document.getElementById('startGameBtn'),
+            gameScreen: document.getElementById('gameScreen'),
+            score: document.getElementById('score'),
+            combo: document.getElementById('combo'),
+            timer: document.getElementById('timer'),
+            pauseBtn: document.getElementById('pauseBtn'),
+            questionArea: document.getElementById('questionArea'),
+            questionContent: document.getElementById('questionContent'),
+            questionNumber: document.getElementById('questionNumber'),
+            questionCategory: document.getElementById('questionCategory'),
+            optionsContainer: document.getElementById('optionsContainer'),
+            backToMenuBtn: document.getElementById('backToMenuBtn')
+        };
+
+        // 初始化学段选择
+        function initGradeSelection() {
+            if (!elements.gradeContainer) {
+                console.error('学段容器未找到');
+                return;
+            }
+
+            elements.gradeContainer.innerHTML = '';
+
+            grades.forEach((grade, index) => {
+                const button = document.createElement('button');
+                button.className = 'game-button w-full bg-gray-700 hover:bg-gray-600 text-white font-semibold py-3 px-4 rounded-lg text-left flex items-center justify-between';
+                button.innerHTML = `
+                    <div>
+                        <div class="font-bold text-sm sm:text-base">${grade.display}</div>
+                        <div class="text-xs sm:text-sm opacity-75">${grade.description}</div>
+                    </div>
+                    <svg class="w-4 h-4 opacity-60" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                    </svg>
+                `;
+
+                button.onclick = () => selectGrade(grade);
+                elements.gradeContainer.appendChild(button);
+            });
+
+            console.log('学段选择初始化完成，共创建了', grades.length, '个按钮');
+        }
+
+        // 初始化学期选择
+        function initSemesterSelection() {
+            console.log('=== 初始化学期选择 ===');
+            console.log('当前选中的学段:', gameState.selectedGrade);
+            
+            // 确保容器存在
+            if (!elements.semesterContainer) {
+                elements.semesterContainer = document.getElementById('semesterContainer');
+                if (!elements.semesterContainer) {
+                    console.error('学期容器未找到！');
+                    return;
+                }
+            }
+
+            // 清空容器
+            elements.semesterContainer.innerHTML = '';
+
+            // 检查是否选择了学段
+            if (!gameState.selectedGrade) {
+                console.warn('未选择学段，无法初始化学期');
+                return;
+            }
+
+            // 获取选中的学段对象
+            const selectedGrade = grades.find(g => g.key === gameState.selectedGrade.key);
+            console.log('查找到的学段对象:', selectedGrade);
+            
+            if (!selectedGrade || !selectedGrade.semesters) {
+                console.error('选中的学段没有学期数据');
+                return;
+            }
+
+            console.log('开始创建学期按钮，数量:', selectedGrade.semesters.length);
+
+            // 创建学期按钮
+            selectedGrade.semesters.forEach((semester, index) => {
+                const button = document.createElement('button');
+                button.className = 'game-button w-full bg-gray-700 hover:bg-gray-600 text-white font-semibold py-3 px-4 rounded-lg text-left flex items-center justify-between';
+                button.innerHTML = `
+                    <div>
+                        <div class="font-bold text-sm sm:text-base">${semester.display}</div>
+                        <div class="text-xs sm:text-sm opacity-75">包含该年级及之前内容</div>
+                    </div>
+                    <svg class="w-4 h-4 opacity-60" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                    </svg>
+                `;
+
+                button.onclick = () => selectSemester(semester);
+                elements.semesterContainer.appendChild(button);
+            });
+
+            console.log('学期选择初始化完成，共创建了', selectedGrade.semesters.length, '个按钮');
+        }
+
+        // 选择学段
+        function selectGrade(grade) {
+            console.log('=== 选择学段 ===');
+            gameState.selectedGrade = grade;
+            gameState.selectedSemester = null; // 重置学期选择
+
+            console.log('设置选中学段:', grade);
+            
+            updateGradeButtons();
+            showGradeDisplay();
+            
+            // 确保学期区域存在
+            if (!elements.semesterSection) {
+                elements.semesterSection = document.getElementById('semesterSection');
+            }
+            
+            // 显示学期选择区域
+            if (elements.semesterSection) {
+                elements.semesterSection.classList.remove('hidden');
+                console.log('学期选择区域已显示');
+            } else {
+                console.error('学期选择区域元素不存在');
+            }
+            
+            // 初始化学期选择
+            initSemesterSelection();
+            
+            hideSemesterDisplay();
+            showNotification(`已选择学段：${grade.display}`, 'success');
+            console.log('学段选择完成:', grade);
+        }
+
+        // 选择学期
+        function selectSemester(semester) {
+            gameState.selectedSemester = semester;
+            updateSemesterButtons();
+            showSemesterDisplay();
+            showNotification(`已选择：${semester.display}`, 'success');
+            console.log('选择的学期:', semester);
+        }
+
+        // 更新学段按钮状态
+        function updateGradeButtons() {
+            const buttons = elements.gradeContainer.querySelectorAll('button');
+            buttons.forEach((button, index) => {
+                if (gameState.selectedGrade &&
+                    grades[index].key === gameState.selectedGrade.key) {
+                    button.className = button.className.replace('bg-gray-700 hover:bg-gray-600', 'bg-green-600 hover:bg-green-700');
+                    const icon = button.querySelector('svg');
+                    if (icon) {
+                        icon.classList.remove('opacity-60');
+                        icon.classList.add('text-white');
+                    }
+                } else {
+                    button.className = button.className.replace('bg-green-600 hover:bg-green-700', 'bg-gray-700 hover:bg-gray-600');
+                    const icon = button.querySelector('svg');
+                    if (icon) {
+                        icon.classList.add('opacity-60');
+                        icon.classList.remove('text-white');
+                    }
+                }
+            });
+        }
+
+        // 更新学期按钮状态
+        function updateSemesterButtons() {
+            if (!gameState.selectedGrade) return;
+
+            const selectedGrade = grades.find(g => g.key === gameState.selectedGrade.key);
+            if (!selectedGrade || !selectedGrade.semesters) return;
+
+            const buttons = elements.semesterContainer.querySelectorAll('button');
+            buttons.forEach((button, index) => {
+                if (gameState.selectedSemester &&
+                    selectedGrade.semesters[index].key === gameState.selectedSemester.key) {
+                    button.className = button.className.replace('bg-gray-700 hover:bg-gray-600', 'bg-green-600 hover:bg-green-700');
+                    const icon = button.querySelector('svg');
+                    if (icon) {
+                        icon.classList.remove('opacity-60');
+                        icon.classList.add('text-white');
+                    }
+                } else {
+                    button.className = button.className.replace('bg-green-600 hover:bg-green-700', 'bg-gray-700 hover:bg-gray-600');
+                    const icon = button.querySelector('svg');
+                    if (icon) {
+                        icon.classList.add('opacity-60');
+                        icon.classList.remove('text-white');
+                    }
+                }
+            });
+        }
+
+        // 显示学段选择状态
+        function showGradeDisplay() {
+            if (gameState.selectedGrade) {
+                if (elements.currentGradeDisplay && elements.currentGradeText) {
+                    elements.currentGradeDisplay.classList.remove('hidden');
+                    elements.currentGradeText.textContent = gameState.selectedGrade.display;
+                }
+
+                if (elements.noSelectionHint) {
+                    elements.noSelectionHint.style.display = 'none';
+                }
+            } else {
+                if (elements.currentGradeDisplay) {
+                    elements.currentGradeDisplay.classList.add('hidden');
+                }
+
+                if (elements.noSelectionHint) {
+                    elements.noSelectionHint.style.display = 'block';
+                }
+            }
+        }
+
+        // 显示学段选择区域
+        function showSemesterSection() {
+            if (!elements.semesterSection) {
+                elements.semesterSection = document.getElementById('semesterSection');
+            }
+            if (elements.semesterSection) {
+                elements.semesterSection.style.display = 'block';
+                console.log('学期选择区域显示成功');
+            } else {
+                console.error('学期选择区域元素不存在');
+            }
+        }
+
+        // 隐藏学段选择区域
+        function hideSemesterSection() {
+            if (elements.semesterSection) {
+                elements.semesterSection.style.display = 'none';
+            }
+        }
+
+        // 显示学期选择状态
+        function showSemesterDisplay() {
+            if (gameState.selectedSemester) {
+                if (elements.currentSemesterDisplay && elements.currentSemesterText) {
+                    elements.currentSemesterDisplay.classList.remove('hidden');
+                    elements.currentSemesterText.textContent = gameState.selectedSemester.display;
+                }
+
+                if (elements.noSemesterHint) {
+                    elements.noSemesterHint.style.display = 'none';
+                }
+            } else {
+                if (elements.currentSemesterDisplay) {
+                    elements.currentSemesterDisplay.classList.add('hidden');
+                }
+
+                if (elements.noSemesterHint) {
+                    elements.noSemesterHint.style.display = 'block';
+                }
+            }
+        }
+
+        // 隐藏学期选择状态
+        function hideSemesterDisplay() {
+            if (elements.currentSemesterDisplay) {
+                elements.currentSemesterDisplay.classList.add('hidden');
+            }
+        }
+
+        // 清除学段选择
+        function clearGrade() {
+            gameState.selectedGrade = null;
+            gameState.selectedSemester = null;
+            updateGradeButtons();
+            showGradeDisplay();
+            hideSemesterSection();
+            hideSemesterDisplay();
+            showNotification('已重置为全部内容', 'info');
+        }
+
+        // 清除所有选择
+        function clearAll() {
+            gameState.selectedGrade = null;
+            gameState.selectedSemester = null;
+            updateGradeButtons();
+            showGradeDisplay();
+            hideSemesterSection();
+            hideSemesterDisplay();
+            showNotification('已重置为全部内容', 'info');
+        }
+
+        // 清除学期选择
+        function clearSemester() {
+            gameState.selectedSemester = null;
+            updateSemesterButtons();
+            showSemesterDisplay();
+            showNotification('已重置为该学段全部内容', 'info');
+        }
+
+        // 开始游戏
+        function startGame() {
+            console.log('开始游戏...');
+
+            // 重置游戏状态
+            gameState.score = 0;
+            gameState.combo = 0;
+            gameState.questionCount = 0;
+            gameState.timeLeft = 90;
+            gameState.isPlaying = true;
+            gameState.isPaused = false;
+            gameState.usedQuestionIndices = [];  // 重置已使用题目索引
+
+            // 切换到游戏界面
+            elements.gameScreen.classList.remove('hidden');
+
+            // 更新显示
+            updateGameDisplay();
+
+            // 开始计时
+            startTimer();
+
+            // 加载第一题
+            loadQuestion();
+
+            showNotification('游戏开始！', 'success');
+        }
+
+        // 加载题目
+        function loadQuestion() {
+            console.log('=== 开始加载题目 ===');
+            console.log('当前已使用的题目索引:', gameState.usedQuestionIndices);
+
+            // 过滤题目（如果有学期限制）
+            let availableQuestions = sampleQuestions;
+
+            // 首先根据选择的学段过滤题目
+            if (gameState.selectedGrade) {
+                // 根据学段过滤题目（这里假设现有题目都是初中内容）
+                if (gameState.selectedGrade.key === 'elementary') {
+                    // 小学内容 - 暂时没有对应题目，使用基础题目
+                    availableQuestions = availableQuestions.filter(q => q.difficulty === 'basic');
+                } else if (gameState.selectedGrade.key === 'middle') {
+                    // 初中内容 - 包含所有现有题目
+                    availableQuestions = sampleQuestions;
+                } else if (gameState.selectedGrade.key === 'high') {
+                    // 高中内容 - 暂时没有对应题目，使用进阶题目
+                    availableQuestions = availableQuestions.filter(q => q.difficulty === 'advanced' || q.category.includes('函数') || q.category.includes('三角'));
+                }
+            }
+
+            // 然后根据选择的学期进一步过滤
+            if (gameState.selectedSemester && gameState.selectedGrade.key === 'middle') {
+                availableQuestions = availableQuestions.filter(q =>
+                    q.semester === gameState.selectedSemester.key ||
+                    getSemesterIndex(q.semester) <= getSemesterIndex(gameState.selectedSemester.key)
+                );
+            }
+
+            console.log('可用题目数:', availableQuestions.length);
+
+            if (availableQuestions.length === 0) {
+                showNotification('该年级暂无可用题目，请选择其他年级', 'error');
+                return;
+            }
+
+            // 获取未使用的题目
+            const unusedQuestions = availableQuestions.filter((q, index) => {
+                const originalIndex = sampleQuestions.indexOf(q);
+                return !gameState.usedQuestionIndices.includes(originalIndex);
+            });
+
+            console.log('未使用的题目数:', unusedQuestions.length);
+
+            // 如果所有题目都已使用，重置使用记录
+            if (unusedQuestions.length === 0) {
+                gameState.usedQuestionIndices = [];
+                console.log('所有题目已用完，重置索引');
+                showNotification('所有题目已循环，重新开始！', 'info');
+                // 递归调用，重新选择
+                setTimeout(() => loadQuestion(), 100);
+                return;
+            }
+
+            // 随机选择未使用的题目
+            const selectedQuestion = unusedQuestions[Math.floor(Math.random() * unusedQuestions.length)];
+            const originalIndex = sampleQuestions.indexOf(selectedQuestion);
+
+            console.log('选择的题目:', selectedQuestion.question, '原始索引:', originalIndex);
+
+            // 记录已使用的题目索引
+            gameState.usedQuestionIndices.push(originalIndex);
+            console.log('使用后的已使用索引:', gameState.usedQuestionIndices);
+
+            // 更新题目显示
+            gameState.questionCount++;
+            elements.questionNumber.textContent = `第 ${gameState.questionCount} 题`;
+            elements.questionCategory.textContent = selectedQuestion.category;
+            elements.questionContent.textContent = selectedQuestion.question;
+
+            // 清空选项容器
+            elements.optionsContainer.innerHTML = '';
+
+            // 生成选项按钮
+            selectedQuestion.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.className = 'game-button bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-4 rounded-lg text-left';
+                button.innerHTML = `<span class="font-bold text-lg mr-3">${String.fromCharCode(65 + index)}.</span> ${option}`;
+                button.onclick = () => selectAnswer(index, selectedQuestion.correct);
+                elements.optionsContainer.appendChild(button);
+            });
+        }
+
+        // 选择答案
+        function selectAnswer(selectedIndex, correctIndex) {
+            const buttons = elements.optionsContainer.querySelectorAll('button');
+            const selectedButton = buttons[selectedIndex];
+            const correctButton = buttons[correctIndex];
+
+            // 禁用所有按钮
+            buttons.forEach(btn => btn.disabled = true);
+
+            if (selectedIndex === correctIndex) {
+                // 正确答案
+                selectedButton.className = selectedButton.className.replace('bg-gray-700 hover:bg-gray-600', 'bg-green-600');
+                gameState.score += 10;
+                gameState.combo++;
+                showNotification('正确！+10分', 'success');
+            } else {
+                // 错误答案
+                selectedButton.className = selectedButton.className.replace('bg-gray-700 hover:bg-gray-600', 'bg-red-600');
+                correctButton.className = correctButton.className.replace('bg-gray-700 hover:bg-gray-600', 'bg-green-600');
+                gameState.combo = 0;
+                showNotification('错误！再加油', 'error');
+            }
+
+            updateGameDisplay();
+
+            // 2秒后加载下一题
+            setTimeout(() => {
+                if (gameState.isPlaying && !gameState.isPaused) {
+                    loadQuestion();
+                }
+            }, 2000);
+        }
+
+        // 暂停游戏
+        function pauseGame() {
+            if (gameState.isPaused) {
+                gameState.isPaused = false;
+                elements.pauseBtn.innerHTML = `
+                    <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                    </svg>
+                    暂停
+                `;
+                startTimer();
+                showNotification('游戏继续', 'info');
+            } else {
+                gameState.isPaused = true;
+                elements.pauseBtn.innerHTML = `
+                    <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"/>
+                    </svg>
+                    继续
+                `;
+                stopTimer();
+                showNotification('游戏暂停', 'info');
+            }
+        }
+
+        // 返回主菜单
+        function backToMenu() {
+            gameState.isPlaying = false;
+            stopTimer();
+            elements.gameScreen.classList.add('hidden');
+        }
+
+        // 计时器相关
+        function startTimer() {
+            stopTimer();
+            gameState.timer = setInterval(() => {
+                if (gameState.timeLeft > 0) {
+                    gameState.timeLeft--;
+                    updateGameDisplay();
+
+                    if (gameState.timeLeft <= 10) {
+                        elements.timer.className = elements.timer.className.replace('text-cyan-400', 'text-red-500');
+                    }
+                } else {
+                    endGame();
+                }
+            }, 1000);
+        }
+
+        function stopTimer() {
+            if (gameState.timer) {
+                clearInterval(gameState.timer);
+                gameState.timer = null;
+            }
+        }
+
+        // 游戏结束
+        function endGame() {
+            gameState.isPlaying = false;
+            stopTimer();
+
+            const message = `游戏结束！得分：${gameState.score}`;
+            showNotification(message, 'info');
+
+            setTimeout(() => {
+                backToMenu();
+            }, 3000);
+        }
+
+        // 更新游戏显示
+        function updateGameDisplay() {
+            elements.score.textContent = gameState.score;
+            elements.combo.textContent = gameState.combo;
+            elements.timer.textContent = gameState.timeLeft;
+        }
+
+        // 显示通知
+        function showNotification(message, type = 'info') {
+            const colors = {
+                success: 'bg-green-600',
+                error: 'bg-red-600',
+                info: 'bg-blue-600'
+            };
+
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 ${colors[type]} text-white px-6 py-3 rounded-lg shadow-lg z-50 flex items-center`;
+            notification.innerHTML = `
+                <span class="mr-2">${type === 'success' ? '✓' : type === 'error' ? '✗' : 'ℹ'}</span>
+                <span>${message}</span>
+            `;
+
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // 获取学期索引
+        function getSemesterIndex(semesterKey) {
+            if (!gameState.selectedGrade) return -1;
+
+            const selectedGrade = grades.find(g => g.key === gameState.selectedGrade.key);
+            if (!selectedGrade || !selectedGrade.semesters) return -1;
+
+            return selectedGrade.semesters.findIndex(s => s.key === semesterKey);
+        }
+
+        // 事件监听器
+        elements.clearAllBtn.addEventListener('click', clearAll);
+        elements.startGameBtn.addEventListener('click', startGame);
+        elements.pauseBtn.addEventListener('click', pauseGame);
+        elements.backToMenuBtn.addEventListener('click', backToMenu);
+
+        // 键盘快捷键
+        document.addEventListener('keydown', (e) => {
+            if (!gameState.isPlaying || gameState.isPaused) return;
+
+            // A/B/C/D 键选择答案
+            const keyMap = { 'a': 0, 'b': 1, 'c': 2, 'd': 3, 'A': 0, 'B': 1, 'C': 2, 'D': 3 };
+            if (keyMap.hasOwnProperty(e.key)) {
+                const buttons = elements.optionsContainer.querySelectorAll('button');
+                if (buttons[keyMap[e.key]] && !buttons[keyMap[e.key]].disabled) {
+                    buttons[keyMap[e.key]].click();
+                }
+            }
+
+            // 数字键1-4选择答案
+            if (e.key >= '1' && e.key <= '4') {
+                const index = parseInt(e.key) - 1;
+                const buttons = elements.optionsContainer.querySelectorAll('button');
+                if (buttons[index] && !buttons[index].disabled) {
+                    buttons[index].click();
+                }
+            }
+
+            // 空格键暂停
+            if (e.key === ' ') {
+                e.preventDefault();
+                pauseGame();
+            }
+        });
+
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('页面加载完成，开始初始化...');
+            
+            // 确保所有DOM元素都已加载
+            setTimeout(() => {
+                initGradeSelection();
+                console.log('学段选择初始化调用完成');
+
+                // 显示默认提示
+                if (elements.noSelectionHint) {
+                    elements.noSelectionHint.style.display = 'block';
+                }
+
+                // 确保学期选择区域默认隐藏
+                if (elements.semesterSection) {
+                    elements.semesterSection.classList.add('hidden');
+                    console.log('学期选择区域已初始化为隐藏状态');
+                }
+
+                // 添加控制台调试命令
+                window.debugGame = {
+                    initGrades: initGradeSelection,
+                    initSemesters: initSemesterSelection,
+                    startGame: startGame,
+                    gameState: () => gameState,
+                    loadQuestion: loadQuestion,
+                    selectGrade: selectGrade,
+                    selectSemester: selectSemester
+                };
+
+                showNotification('欢迎来到记忆风暴！请先选择学段', 'success');
+                
+                // 验证学段按钮是否创建成功
+                const gradeButtons = elements.gradeContainer.querySelectorAll('button');
+                console.log('验证：找到的学段按钮数量:', gradeButtons.length);
+                if (gradeButtons.length === 0) {
+                    console.error('警告：学段按钮未创建成功！');
+                } else {
+                    console.log('✓ 学段按钮创建成功');
+                }
+            }, 100);
+        });
+
+        // 添加一些调试信息
+        console.log('记忆风暴游戏脚本加载完成');
+        console.log('可用调试命令:');
+        console.log('- debugGame.initSemesters() - 重新初始化学期选择');
+        console.log('- debugGame.startGame() - 开始游戏');
+        console.log('- debugGame.gameState() - 查看游戏状态');
+        console.log('- debugGame.loadQuestion() - 手动加载下一题');
+    </script>
 </body>
 </html>
